@@ -9,10 +9,12 @@ owen0004@e.ntu.edu.sg
 n2202347h@e.ntu.edu.sg
 
 &Tasks
-1.  use case diagram
+1.  use case diagram DONE
 2.  use case description (how the user interacts with the system to carry out the system functionality.)
     https://docs.google.com/spreadsheets/d/1Cg9n49aFykL0uJXVbduHrpA7XETPQTknFsIgyOlCdQ0/edit?usp=sharing
+    DONE
 3.  funtional and non-funtional requirements
+    DONE
 4.  user interfacr mockup
 
 &webpage
