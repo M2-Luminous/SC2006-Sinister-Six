@@ -1,8 +1,11 @@
 const fs = require('fs');
+const express = require('express');
 const formula = require('./formula')
 let conversion;
 let townData;
 let dateTime;
+const app = express();
+
 fs.readFile("./resources/data/conversion.json", "utf8", (err, jsonString) => {
     if (err) {
       console.log("File read failed:", err);
@@ -18,7 +21,6 @@ fs.readFile("./resources/data/conversion.json", "utf8", (err, jsonString) => {
     //console.log(formula(Filter()));
 });
 
-let price = -1;
 let area = -1;
 let floor = -1;
 let town = -1;
@@ -31,18 +33,17 @@ const MIN_FLOOR = 1;
 const MAX_FLOOR = 51;
 const averageFloor = [2, 3, 5, 8, 11, 13, 14, 17, 18, 20, 23, 26, 28, 29, 32, 33, 35, 38, 41, 44, 47, 50];
 
-const Setfilter = (p, a, f, t, m, r, lsd) =>
+const SetFilter = (data) =>
 {
-    price = p;
-    area = a;
+    area = parseInt(data['floorArea']);
     for(let x = 0; x < averageFloor.length; x++)
     {
-        if(averageFloor[x] == f)
+        if(averageFloor[x] == data['floor'])
         {
             floor = averageFloor[x];
             break;
         }
-        if(averageFloor[x] > f)
+        if(averageFloor[x] > data['floor'])
         {
             if(averageFloor[x] - f >= f - averageFloor[x-1])
             {
@@ -57,18 +58,17 @@ const Setfilter = (p, a, f, t, m, r, lsd) =>
 
         }
     }
-    town = townData[0][t];
-    model = flatData[0][m];
-    roomNo = roomNoData[0][r];
-    dateTime = new Date(lsd);
+    town = townData[0][data['townName']];
+    model = flatData[0][data['flatModel']];
+    roomNo = roomNoData[0][data['noOfRooms']];
+    dateTime = new Date(data['leaseStartDate']);
     //leaseStartDate = Math.floor(dateTime.getTime()/1000); //UNIX TIME: DO NOT USE
-    leaseStartDate = lsd;
+    leaseStartDate = parseInt(data['leaseStartDate']);
 }
 
 //node js testing purposes
 const test = () =>
 {
-    price = 120000;
     area = 100;
     floor = 6;
     town = townData[0]['CHOA CHU KANG'];
@@ -80,7 +80,23 @@ const test = () =>
 
 const Filter = () =>
 {
-    let filterObj = {price, area, floor, town, model, roomNo, leaseStartDate};
+    let filterObj = {area, floor, town, model, roomNo, leaseStartDate};
     return filterObj;
 }
 
+
+app.post("/Filter", (req, res) => {
+const t = req.query['data'];
+const rawData = JSON.parse(req.query['data']);
+SetFilter(rawData);
+res.send({price: formula(Filter())});
+});
+
+app.post("/test", (req, res) => {
+    const rawData = req.body;
+    res.send('Connection successful');
+    });
+
+app.listen(5000, () => {
+    console.log(`Server is running on port 5000.`);
+  });
