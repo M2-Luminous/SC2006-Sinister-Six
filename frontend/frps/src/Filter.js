@@ -1,36 +1,36 @@
 import * as React from 'react';
 import { useState } from 'react';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import Select from '@mui/material/Select';
 import { FormControl, TextField } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem';
-import { compose } from '@mui/system';
-
 
 const Filter = () => {
 
-    // const processFilter = (name,) => {
+    const [filter, setFilter] = useState({
+        townName: '',
+        noOfRooms: '',
+        floor: '',
+        floorArea: '',
+        flatModel: '',
+        leaseStartDate: ''
+    });
 
-    // };
+    const test = () => {
+        console.log(filter);
+    }
 
-    const [townName, setTownName] = useState('');
-    const [noOfRooms, setNoOfRooms] = useState('');
-    const [floor, setFloor] = useState('');
-    const [floorArea, setFloorArea] = useState('');
-    const [flatModel, setFlatModel] = useState('');
-    const [leaseStartDate, setLeaseStartDate] = useState('');
 
     const handleChange = (event) => {
-        setTownName(event.target.value);
+        setFilter({ ...filter, [event.target.name]: event.target.value });
         console.log("lol");
-        console.log(event);
+        console.log(filter);
+        console.log("updatedValue:" + filter.townName);
     }
 
     return (
@@ -49,8 +49,9 @@ const Filter = () => {
                     <Select
                         labelId="town-select-label"
                         id="town-select"
-                        value={townName}
+                        value={filter.townName}
                         label="Town Name"
+                        name="townName"
                         onChange={handleChange}
                     >
                         <MenuItem value={10}>Ten</MenuItem>
@@ -64,8 +65,9 @@ const Filter = () => {
                     <Select
                         labelId="noOfRooms-select-label"
                         id="noOfRooms-select"
-                        value={noOfRooms}
-                        label="noOfRooms"
+                        name="noOfRooms"
+                        value={filter.noOfRooms}
+                        label="Number of Rooms"
                         onChange={handleChange}
                     >
                         <MenuItem value={10}>Ten</MenuItem>
@@ -79,9 +81,10 @@ const Filter = () => {
                     <Select
                         labelId="floor-select-label"
                         id="floor-select"
-                        value={floor}
+                        value={filter.floor}
                         label="floor"
                         onChange={handleChange}
+                        name="floor"
                     >
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
@@ -93,10 +96,14 @@ const Filter = () => {
                     <TextField
                         id="floorArea-input"
                         label="Floor Area"
-                        value={floorArea}
+                        value={filter.floorArea}
+                        input="number"
+                        varient="outlined"
                         onChange={handleChange}
+                        name="floorArea"
 
                     />
+
                 </FormControl>
 
                 <FormControl sx={{ width: "75%", mb: 3 }}>
@@ -104,10 +111,10 @@ const Filter = () => {
                     <Select
                         labelId="flatModel-select-label"
                         id="flatModel-select"
-                        value={flatModel}
-                        label="flatModel"
+                        value={filter.flatModel}
+                        label="Flat Model"
                         onChange={handleChange}
-                        helperText="Please select your flat model"
+                        name="flatModel"
                     >
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
@@ -120,9 +127,10 @@ const Filter = () => {
                     <Select
                         labelId="leaseStartDate-select-label"
                         id="leaseStartDate-select"
-                        value={leaseStartDate}
-                        label="leaseStartDate"
+                        value={filter.leaseStartDate}
+                        label="Lease Start Date"
                         onChange={handleChange}
+                        name="leaseStartDate"
                     >
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
@@ -132,11 +140,10 @@ const Filter = () => {
 
             </CardContent>
 
-
-
-
             <CardActions>
-                <Button size="small" variant="contained">Filter</Button>
+                <Button size="small" onClick={test} variant="contained">test</Button>
+
+                <Button size="small" variant="contained" >Filter</Button>
             </CardActions>
         </Card >
 
