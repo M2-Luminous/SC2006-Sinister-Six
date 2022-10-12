@@ -21,7 +21,7 @@ const HouseCards = () => {
 
                 <Grid container spacing={2} columns={12} sx={{ border: 0 }}>
 
-                    <Grid item xs={4} sx={{ border: 1, color: 'red' }} >
+                    <Grid item xs={4} sx={{ border: 0, color: '' }} >
                         <CardMedia
                             component="img"
                             height="200"
@@ -37,9 +37,9 @@ const HouseCards = () => {
                         />
                     </Grid>
 
-                    <Grid item xs={8} sx={{ border: 1, color: 'blue' }}>
+                    <Grid item xs={8} sx={{ border: 0, color: '' }}>
                         <CardContent>
-                            <Grid container sx={{ border: 1 }}>
+                            <Grid container sx={{ border: 0 }}>
                                 <Grid item xs={12} md={6}>
                                     <Grid container>
                                         <Grid item xs={4} marginBottom={2}>
