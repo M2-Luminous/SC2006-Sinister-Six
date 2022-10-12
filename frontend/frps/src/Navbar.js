@@ -16,7 +16,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
 
-const pages = ['Home', 'Filters'];
+const pages = ['home', 'filters'];
 const settings = ['Admin Login'];
 
 
@@ -112,6 +112,7 @@ const Navbar = () => {
                                 key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
+                                href={"/" + page}
                             >
                                 {page}
                             </Button>
