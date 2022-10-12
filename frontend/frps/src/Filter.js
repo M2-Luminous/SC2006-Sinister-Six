@@ -13,29 +13,23 @@ import MenuItem from '@mui/material/MenuItem';
 const Filter = () => {
 
     const [filter, setFilter] = useState({
-        townName: 'CHOA CHU KANG',
-        noOfRooms: '5 ROOM',
-        floor: '2',
-        floorArea: '120',
-        flatModel: 'New Generation',
-        leaseStartDate: '1998'
+        townName: '',
+        noOfRooms: '',
+        floor: '',
+        floorArea: '',
+        flatModel: '',
+        leaseStartDate: ''
     });
 
     const test = () => {
         console.log("STRINGYFYING");
-        let newString = "{data={" + JSON.stringify(filter);
         console.log(JSON.stringify(filter));
-
-        //POST to backend
-        fetch('http://localhost:5000/filter', {
+        // console.log(filter);
+        fetch('http://202.166.52.213:5000/', {
             method: 'POST',
             mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(filter),
         })
-            .then(res => res)
-            .then(data => console.log(data))
-            .catch(error => console.log(error));
     }
 
 
