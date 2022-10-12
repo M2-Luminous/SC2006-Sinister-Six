@@ -4,9 +4,10 @@ import Navbar from './Navbar';
 import Home from './Home';
 import Filter from './Filter';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; //npm install react-router-dom@5
-import StackTest from './StackTest';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Test from './Test';
+import HouseCards from './Boundary/UIElements/HouseCards.js';
 
 const theme = createTheme({
   palette: {
@@ -38,7 +39,7 @@ function App() {
                 <Filter />
               </Route>
               <Route path="/lol">
-                <StackTest />
+                <HouseCards />
               </Route>
             </Switch>
           </div>

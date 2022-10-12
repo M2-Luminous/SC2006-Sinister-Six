@@ -85,8 +85,8 @@ const Navbar = () => {
 
 
     return (
-        <AppBar position="static">
-            <Container maxWidth="xl">
+        <AppBar position="fixed elevation={0}">
+            <Container sx={{ p: 0 }}>
                 <Toolbar disableGutters>
                     <Typography
                         variant="h6"
@@ -96,7 +96,8 @@ const Navbar = () => {
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'flex' },
-                            fontFamily: 'monospace',
+                            // fontFamily: 'monospace',
+                            fontSize: '1.5rem',
                             fontWeight: 900,
                             letterSpacing: '.3rem',
                             color: 'inherit',
@@ -111,7 +112,12 @@ const Navbar = () => {
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{
+                                    my: 2,
+                                    color: 'white',
+                                    display: 'block',
+                                    // fontSize: 'rem',
+                                }}
                                 href={"/" + page}
                             >
                                 {page}

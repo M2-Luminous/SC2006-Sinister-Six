@@ -25,11 +25,10 @@ const Filter = () => {
         console.log("STRINGYFYING");
         console.log(JSON.stringify(filter));
         // console.log(filter);
-        fetch('http://202.166.52.213:5000/', {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(filter),
-        })
+
+        // fetch from server
+
+
     }
 
 
