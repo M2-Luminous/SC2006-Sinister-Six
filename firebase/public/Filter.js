@@ -36,16 +36,17 @@ const averageFloor = [2, 3, 5, 8, 11, 13, 14, 17, 18, 20, 23, 26, 28, 29, 32, 33
 const SetFilter = (data) =>
 {
     area = parseInt(data['floorArea']);
+    floor = parseInt(data['floor']);
     for(let x = 0; x < averageFloor.length; x++)
     {
-        if(averageFloor[x] == data['floor'])
+        if(averageFloor[x] == floor)
         {
             floor = averageFloor[x];
             break;
         }
-        if(averageFloor[x] > data['floor'])
+        if(averageFloor[x] > floor)
         {
-            if(averageFloor[x] - f >= f - averageFloor[x-1])
+            if((averageFloor[x] - floor) >= (floor - averageFloor[x-1]) || x == 0)
             {
                 floor = averageFloor[x];
                 break;
@@ -85,11 +86,13 @@ const Filter = () =>
 }
 
 
-app.post("/Filter", (req, res) => {
-const t = req.query['data'];
+app.post("/filter", (req, res) => {
+const t = req.query;
 const rawData = JSON.parse(req.query['data']);
 SetFilter(rawData);
+console.log('Data collected');
 res.send({price: formula(Filter())});
+console.log('Data sent');
 });
 
 app.post("/test", (req, res) => {
