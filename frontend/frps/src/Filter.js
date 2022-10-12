@@ -60,9 +60,9 @@ const Filter = () => {
                         name="townName"
                         onChange={handleChange}
                     >
-                        <MenuItem value={"10"}>Ten</MenuItem>
-                        <MenuItem value={"20"}>Twenty</MenuItem>
-                        <MenuItem value={"30"}>Thirty</MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
                 </FormControl>
 
@@ -76,9 +76,9 @@ const Filter = () => {
                         label="Number of Rooms"
                         onChange={handleChange}
                     >
-                        <MenuItem value={"10"}>Ten</MenuItem>
-                        <MenuItem value={"20"}>Twenty</MenuItem>
-                        <MenuItem value={"30"}>Thirty</MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
                 </FormControl>
 
@@ -92,9 +92,9 @@ const Filter = () => {
                         onChange={handleChange}
                         name="floor"
                     >
-                        <MenuItem value={"10"}>Ten</MenuItem>
-                        <MenuItem value={"20"}>Twenty</MenuItem>
-                        <MenuItem value={"30"}>Thirty</MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
                 </FormControl>
 
@@ -122,9 +122,9 @@ const Filter = () => {
                         onChange={handleChange}
                         name="flatModel"
                     >
-                        <MenuItem value={"10"}>Ten</MenuItem>
-                        <MenuItem value={"20"}>Twenty</MenuItem>
-                        <MenuItem value={"30"}>Thirty</MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
                 </FormControl>
 
@@ -138,9 +138,9 @@ const Filter = () => {
                         onChange={handleChange}
                         name="leaseStartDate"
                     >
-                        <MenuItem value={"10"}>Ten</MenuItem>
-                        <MenuItem value={"20"}>Twenty</MenuItem>
-                        <MenuItem value={"30"}>Thirty</MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
                 </FormControl>
 
@@ -149,10 +149,9 @@ const Filter = () => {
             <CardActions>
                 <Button size="small" onClick={test} variant="contained">test</Button>
 
-                <Button size="small" variant="contained" color="secondary" >Filter</Button>
+                <Button size="small" variant="contained" >Filter</Button>
             </CardActions>
         </Card >
-
 
     );
 }
