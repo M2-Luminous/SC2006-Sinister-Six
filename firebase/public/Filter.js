@@ -8,8 +8,8 @@ const app = express();
 
 fs.readFile("./resources/data/conversion.json", "utf8", (err, jsonString) => {
     if (err) {
-      console.log("File read failed:", err);
-      return;
+        console.log("File read failed:", err);
+        return;
     }
     conversion = JSON.parse(jsonString);
     townData = conversion.town;
@@ -33,8 +33,7 @@ const MIN_FLOOR = 1;
 const MAX_FLOOR = 51;
 const averageFloor = [2, 3, 5, 8, 11, 13, 14, 17, 18, 20, 23, 26, 28, 29, 32, 33, 35, 38, 41, 44, 47, 50];
 
-const SetFilter = (data) =>
-{
+const SetFilter = (data) => {
     area = parseInt(data['floorArea']);
     floor = parseInt(data['floor']);
     for(let x = 0; x < averageFloor.length; x++)
@@ -51,9 +50,8 @@ const SetFilter = (data) =>
                 floor = averageFloor[x];
                 break;
             }
-            else
-            {
-                floor = averageFloor[x-1];
+            else {
+                floor = averageFloor[x - 1];
                 break;
             }
 
@@ -68,8 +66,7 @@ const SetFilter = (data) =>
 }
 
 //node js testing purposes
-const test = () =>
-{
+const test = () => {
     area = 100;
     floor = 6;
     town = townData[0]['CHOA CHU KANG'];
@@ -79,9 +76,8 @@ const test = () =>
 }
 
 
-const Filter = () =>
-{
-    let filterObj = {area, floor, town, model, roomNo, leaseStartDate};
+const Filter = () => {
+    let filterObj = { area, floor, town, model, roomNo, leaseStartDate };
     return filterObj;
 }
 
@@ -98,8 +94,8 @@ console.log('Data sent');
 app.post("/test", (req, res) => {
     const rawData = req.body;
     res.send('Connection successful');
-    });
+});
 
 app.listen(5000, () => {
     console.log(`Server is running on port 5000.`);
-  });
+});
