@@ -16,7 +16,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
 
-const pages = ['home', 'filters'];
+const pages = ['Home', 'Filters'];
 const settings = ['Admin Login'];
 
 
@@ -85,8 +85,8 @@ const Navbar = () => {
 
 
     return (
-        <AppBar position="fixed elevation={0}">
-            <Container sx={{ p: 0 }}>
+        <AppBar position="static">
+            <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
                         variant="h6"
@@ -96,8 +96,7 @@ const Navbar = () => {
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'flex' },
-                            // fontFamily: 'monospace',
-                            fontSize: '1.5rem',
+                            fontFamily: 'monospace',
                             fontWeight: 900,
                             letterSpacing: '.3rem',
                             color: 'inherit',
@@ -112,13 +111,7 @@ const Navbar = () => {
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{
-                                    my: 2,
-                                    color: 'white',
-                                    display: 'block',
-                                    // fontSize: 'rem',
-                                }}
-                                href={"/" + page}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {page}
                             </Button>
