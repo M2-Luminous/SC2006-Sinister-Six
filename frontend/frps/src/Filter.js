@@ -9,6 +9,7 @@ import Select from '@mui/material/Select';
 import { FormControl, TextField } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem';
+import { Container } from '@mui/system';
 
 const towns = [
     "ANG MO KIO",
@@ -121,129 +122,129 @@ const Filter = () => {
     }
 
     return (
+        <Container>
+            <Card sx={{ mt: 2, ml: "auto", mr: "auto" }} >
+                <CardContent>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        Filter
+                    </Typography>
+                </CardContent>
 
-        <Card sx={{ mt: 2, width: '95%', ml: "auto", mr: "auto" }} >
-            <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Filter
-                </Typography>
-            </CardContent>
+                <CardContent>
 
-            <CardContent>
+                    <FormControl sx={{ width: "75%", mb: 3 }}>
+                        <InputLabel id="town-select-label">Town Name</InputLabel>
+                        <Select
+                            labelId="town-select-label"
+                            id="town-select"
+                            value={filter.townName}
+                            label="Town Name"
+                            name="townName"
+                            onChange={handleChange}
+                        >
+                            {towns.map((town) => (
+                                <MenuItem
+                                    value={town}
+                                >
+                                    {town}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
 
-                <FormControl sx={{ width: "75%", mb: 3 }}>
-                    <InputLabel id="town-select-label">Town Name</InputLabel>
-                    <Select
-                        labelId="town-select-label"
-                        id="town-select"
-                        value={filter.townName}
-                        label="Town Name"
-                        name="townName"
-                        onChange={handleChange}
-                    >
-                        {towns.map((town) => (
-                            <MenuItem
-                                value={town}
-                            >
-                                {town}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                    <FormControl sx={{ width: "75%", mb: 3 }}>
+                        <InputLabel id="noOfRooms-select-label">Number of Rooms</InputLabel>
+                        <Select
+                            labelId="noOfRooms-select-label"
+                            id="noOfRooms-select"
+                            name="noOfRooms"
+                            value={filter.noOfRooms}
+                            label="Number of Rooms"
+                            onChange={handleChange}
+                        >
 
-                <FormControl sx={{ width: "75%", mb: 3 }}>
-                    <InputLabel id="noOfRooms-select-label">Number of Rooms</InputLabel>
-                    <Select
-                        labelId="noOfRooms-select-label"
-                        id="noOfRooms-select"
-                        name="noOfRooms"
-                        value={filter.noOfRooms}
-                        label="Number of Rooms"
-                        onChange={handleChange}
-                    >
+                            {roomNumbers.map((roomNumber) => (
+                                <MenuItem value={roomNumber}>{roomNumber}</MenuItem>
+                            ))}
 
-                        {roomNumbers.map((roomNumber) => (
-                            <MenuItem value={roomNumber}>{roomNumber}</MenuItem>
-                        ))}
+                        </Select>
+                    </FormControl>
 
-                    </Select>
-                </FormControl>
+                    <FormControl sx={{ width: "75%", mb: 3 }}>
+                        <InputLabel id="floor-select-label">Floor</InputLabel>
+                        <Select
+                            labelId="floor-select-label"
+                            id="floor-select"
+                            value={filter.floor}
+                            label="floor"
+                            onChange={handleChange}
+                            name="floor"
+                        >
 
-                <FormControl sx={{ width: "75%", mb: 3 }}>
-                    <InputLabel id="floor-select-label">Floor</InputLabel>
-                    <Select
-                        labelId="floor-select-label"
-                        id="floor-select"
-                        value={filter.floor}
-                        label="floor"
-                        onChange={handleChange}
-                        name="floor"
-                    >
+                            {floorNumbers().map((floor) => {
+                                return <MenuItem value={floor}>{floor}</MenuItem>
+                            })}
 
-                        {floorNumbers().map((floor) => {
-                            return <MenuItem value={floor}>{floor}</MenuItem>
-                        })}
+                        </Select>
+                    </FormControl>
 
-                    </Select>
-                </FormControl>
+                    <FormControl sx={{ width: "75%", mb: 3 }}>
+                        <TextField
+                            id="floorArea-input"
+                            label="Floor Area"
+                            value={filter.floorArea}
+                            input="number"
+                            varient="outlined"
+                            onChange={handleChange}
+                            name="floorArea"
 
-                <FormControl sx={{ width: "75%", mb: 3 }}>
-                    <TextField
-                        id="floorArea-input"
-                        label="Floor Area"
-                        value={filter.floorArea}
-                        input="number"
-                        varient="outlined"
-                        onChange={handleChange}
-                        name="floorArea"
+                        />
 
-                    />
+                    </FormControl>
 
-                </FormControl>
+                    <FormControl sx={{ width: "75%", mb: 3 }}>
+                        <InputLabel id="flatModel-select-label">Flat Model</InputLabel>
+                        <Select
+                            labelId="flatModel-select-label"
+                            id="flatModel-select"
+                            value={filter.flatModel}
+                            label="Flat Model"
+                            onChange={handleChange}
+                            name="flatModel"
+                        >
+                            {flatTypes.map((model) => (
+                                <MenuItem value={model}>{model}</MenuItem>
+                            ))}
 
-                <FormControl sx={{ width: "75%", mb: 3 }}>
-                    <InputLabel id="flatModel-select-label">Flat Model</InputLabel>
-                    <Select
-                        labelId="flatModel-select-label"
-                        id="flatModel-select"
-                        value={filter.flatModel}
-                        label="Flat Model"
-                        onChange={handleChange}
-                        name="flatModel"
-                    >
-                        {flatTypes.map((model) => (
-                            <MenuItem value={model}>{model}</MenuItem>
-                        ))}
+                        </Select>
+                    </FormControl>
 
-                    </Select>
-                </FormControl>
+                    <FormControl sx={{ width: "75%", mb: 3 }}>
+                        <InputLabel id="leaseStartDate-select-label">Least Start Date</InputLabel>
+                        <Select
+                            labelId="leaseStartDate-select-label"
+                            id="leaseStartDate-select"
+                            value={filter.leaseStartDate}
+                            label="Lease Start Date"
+                            onChange={handleChange}
+                            name="leaseStartDate"
+                        >
+                            {leaseDates().map((year) => {
+                                return <MenuItem value={year}>{year}</MenuItem>
+                            })}
 
-                <FormControl sx={{ width: "75%", mb: 3 }}>
-                    <InputLabel id="leaseStartDate-select-label">Least Start Date</InputLabel>
-                    <Select
-                        labelId="leaseStartDate-select-label"
-                        id="leaseStartDate-select"
-                        value={filter.leaseStartDate}
-                        label="Lease Start Date"
-                        onChange={handleChange}
-                        name="leaseStartDate"
-                    >
-                        {leaseDates().map((year) => {
-                            return <MenuItem value={year}>{year}</MenuItem>
-                        })}
+                        </Select>
+                    </FormControl>
 
-                    </Select>
-                </FormControl>
+                </CardContent>
 
-            </CardContent>
+                <CardActions>
+                    <Button size="small" onClick={test} variant="contained">test</Button>
 
-            <CardActions>
-                <Button size="small" onClick={test} variant="contained">test</Button>
-
-                <Button size="small" variant="contained" >Filter</Button>
-            </CardActions>
-        </Card >
-
+                    <Button size="small" variant="contained" >Filter</Button>
+                </CardActions>
+            </Card >
+        </Container>
     );
 }
 

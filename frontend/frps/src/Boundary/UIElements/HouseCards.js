@@ -7,6 +7,7 @@ const HouseCards = () => {
         <div>
             <Card sx={{
                 mt: '30px',
+                mb: '30px',
                 minHeight: 100,
                 maxHeight: 300,
                 borderRadius: '20px',
