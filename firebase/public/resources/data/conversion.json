@@ -55,5 +55,19 @@
             "DBSS": 19,
             "Premium 9": 20
         }
+    ],
+    "roomNumber": [
+        {
+            "NONE": 0,
+            "1 ROOM": 1,
+            "2 ROOM": 2,
+            "3 ROOM": 3,
+            "4 ROOM": 4,
+            "5 ROOM": 5,
+            "EXECUTIVE": 6,
+            "MULTI-GENERATION": 7
+        }
     ]
 }
+
+data={"townName": "CHOA CHU KANG", "noOfRooms": "5 ROOM", "floor": "1", "floorArea": "120", "flatModel": "New Generation", "leaseStartDate": "1998"}
