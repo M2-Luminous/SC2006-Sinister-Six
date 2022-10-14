@@ -32,7 +32,7 @@ const Home = () => {
                     style={{ minWidth: "80px", minHeight: "30px" }}
                 // endIcon={<NavigateNextIcon />}
                 >
-                    Explore More Games
+                    View more
                 </Button>
             </Box>
             <FlatDetails />
