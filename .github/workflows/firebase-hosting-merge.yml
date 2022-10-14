@@ -15,6 +15,7 @@ jobs:
         with:
           node-verion: 16
       - run: npm ci && npm run build
+        CI: ""
         working-directory: ./frontend/frps
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
