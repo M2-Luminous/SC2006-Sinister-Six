@@ -14,6 +14,7 @@ const HouseCards = () => {
                 padding: '4rem',
                 // textAlign: 'center',
                 // justifyContent: 'center',
+                //
                 display: 'flex',
                 ':hover': {
                     boxShadow: '0 0 10px 0 rgba(0,0,0,0.5)',
