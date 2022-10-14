@@ -15,7 +15,7 @@ jobs:
         with:
           node-verion: 16
       - run: npm ci && npm run build
-        working-directory: /frontend/frps
+        working-directory: ./frontend/frps
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
