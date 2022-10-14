@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import Link from '@mui/material/Link';
 import HeroCard from './Boundary/UIElements/HeroCard';
 import HouseCards from './Boundary/UIElements/HouseCards';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import FlatDetails from './Boundary/FlatDetails';
 
 
