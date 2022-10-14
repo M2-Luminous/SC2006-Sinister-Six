@@ -16,7 +16,7 @@ const Home = () => {
             <HeroCard />
             <div style={{ marginBottom: "10px", marginTop: "50px" }}>
                 <Typography variant="overline" style={{ color: "#9e998b" }}>
-                    Find Games to Play
+                    Find your perfect home
                 </Typography>
             </div>
             {/* {slicedGameList.length !== 0 && <DisplayGameList games={slicedGameList} />} */}
