@@ -68,9 +68,10 @@ print('Intercept: \n', linear.intercept_)
 print("-------------------------")
 
 predictions = linear.predict(x_test)
-
+test_line = range(10)
 # Print the predictions, the variables we used and the actual final grade
-for x in range(len(predictions)):
+#for x in range(len(predictions)):
+for x in test_line:
     print("Predicted Final grade:", predictions[x], "Data:", x_test[x], "Final grade:", y_test[x])
 
 # Create visualisation of the model
