@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query, where } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query, orderBy, startAfter } from "firebase/firestore";
 
 // const firebaseConfig = {
 //     apiKey: "AIzaSyAO1UltJ3w_L0PihYZh5yOAqc3tZzKMjlY",
@@ -26,9 +26,70 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-export const getFlats = async () => {
+export const getFlats = async (sortBy, viewNo) => {
     let ref = collection(db, "flats");
-    let q = query(ref, limit(5));
+    let q = query(ref, orderBy("resale_price"), limit(viewNo));
+    let orderKey;
+    let orderDirection;
+
+    switch (sortBy) {
+        case 1:
+            orderKey = "resale_price";
+            orderDirection = "asc";
+            break;
+        case 2:
+            orderKey = "resale_price";
+            orderDirection = "desc";
+            break;
+        case 3:
+            orderKey = "lease_commence_date";
+            orderDirection = "desc";
+            break;
+        case 4:
+            orderKey = "lease_commence_date";
+            orderDirection = "asc";
+            break;
+        default:
+            orderKey = "resale_price";
+            orderDirection = "asc";
+            break;
+
+    }
+    q = query(ref, orderBy(orderKey, orderDirection), limit(viewNo));
+    return await getDocs(q);
+}
+
+
+export const getMoreFlats = async (sortBy, viewNo, lastDoc) => {
+    let ref = collection(db, "flats");
+    let q = query(ref, orderBy("resale_price"), limit(viewNo));
+    let orderKey;
+    let orderDirection;
+
+    switch (sortBy) {
+        case 1:
+            orderKey = "resale_price";
+            orderDirection = "asc";
+            break;
+        case 2:
+            orderKey = "resale_price";
+            orderDirection = "desc";
+            break;
+        case 3:
+            orderKey = "lease_commence_date";
+            orderDirection = "desc";
+            break;
+        case 4:
+            orderKey = "lease_commence_date";
+            orderDirection = "asc";
+            break;
+        default:
+            orderKey = "resale_price";
+            orderDirection = "asc";
+            break;
+
+    }
+    q = query(ref, orderBy(orderKey, orderDirection), startAfter(lastDoc || 0), limit(viewNo));
     return await getDocs(q);
 }
 

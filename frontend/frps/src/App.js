@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; //npm
 import HouseCards from './Boundary/UIElements/HouseCards.js';
 import FlatDetails from './Boundary/FlatDetails';
 import Test from './Test';
+import HomeTest from './HomeTest';
 
 
 
@@ -32,7 +33,7 @@ function App() {
               <FlatDetails />
             </Route>
             <Route path="/err">
-              <FlatDetails />
+              <HomeTest />
             </Route>
             <Route path="/dbtest">
               <Test />

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { getOneFlat } from '../Controller/DatabaseController';
 import Flat from '../Entity/Flat';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const FlatDetails = () => {
@@ -52,11 +53,11 @@ const FlatDetails = () => {
 
     return (
         <Container sx={{ mt: '30px' }}>
-            <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} component={Link} to={'/home'} >
+            <Button variant="contained" color="secondary" startIcon={<ArrowBackIcon />} component={Link} to={'/home'} >
                 Back
             </Button>
 
-            {loading && <Container>Loading...</Container>}
+            {loading && <Container sx={{ display: "flex", justifyContent: "center", marginTop: "60px" }}><CircularProgress /></Container>}
             {!loading &&
 
                 <Card sx={{
@@ -94,6 +95,7 @@ const FlatDetails = () => {
                                 <Typography gutterBottom variant="h5" component="div" sx={{
                                     display: 'flex',
                                     justifyContent: 'flex-end',
+                                    fontWeight: 'bold',
                                 }}>
                                     ${flat.getPrice()}
                                 </Typography>

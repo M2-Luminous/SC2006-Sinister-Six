@@ -154,8 +154,9 @@ const HouseCards = ({ flats }) => {
                                 <Typography gutterBottom variant="h5" component="div" sx={{
                                     display: 'flex',
                                     justifyContent: 'flex-end',
+                                    fontWeight: 'bold',
                                 }}>
-                                    {flat.getPrice()}
+                                    ${flat.getPrice()}
                                 </Typography>
 
                             </Grid>
