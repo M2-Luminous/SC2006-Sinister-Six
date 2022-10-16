@@ -239,9 +239,9 @@ const Filter = () => {
                 </CardContent>
 
                 <CardActions>
-                    <Button size="small" onClick={test} variant="contained">test</Button>
+                    <Button onClick={test} variant="contained">test</Button>
 
-                    <Button size="small" variant="contained" >Filter</Button>
+                    <Button variant="contained">Filter</Button>
                 </CardActions>
             </Card >
         </Container>

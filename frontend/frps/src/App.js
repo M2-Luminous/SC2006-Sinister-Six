@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; //npm
 // import Test from './Test';
 import HouseCards from './Boundary/UIElements/HouseCards.js';
 import FlatDetails from './Boundary/FlatDetails';
+import Test from './Test';
 
 
 
@@ -32,6 +33,9 @@ function App() {
             </Route>
             <Route path="/err">
               <FlatDetails />
+            </Route>
+            <Route path="/dbtest">
+              <Test />
             </Route>
           </Switch>
         </div>

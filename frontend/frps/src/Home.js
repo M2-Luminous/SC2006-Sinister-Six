@@ -5,11 +5,58 @@ import Box from '@mui/material/Box'
 import Link from '@mui/material/Link';
 import HeroCard from './Boundary/UIElements/HeroCard';
 import HouseCards from './Boundary/UIElements/HouseCards';
-// import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+
 import FlatDetails from './Boundary/FlatDetails';
+import { getFlats } from './Controller/DatabaseController';
+import Flat from "./Entity/Flat";
+
 
 
 const Home = () => {
+    const [flats, setFlats] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [flatList, setList] = useState([]);
+
+    useEffect(() => {
+        console.log("fetching..");
+        (async () => {
+            try {
+                const flats = await getFlats();
+                setList(
+                    flats.docs.map(
+                        (doc) =>
+                            new Flat(
+                                doc.id,
+                                doc.data().block,
+                                doc.data().flat_model,
+                                doc.data().flat_type,
+                                doc.data().floor_area_sqm,
+                                doc.data().lease_commence_date,
+                                doc.data().month,
+                                doc.data().resale_price,
+                                doc.data().storey_range,
+                                doc.data().street_name,
+                                doc.data().town
+                            )
+                    )
+                );
+                console.log("loaded");
+                // console.log(flats);
+                setLoading(false);
+            } catch (err) {
+                console.log("Error occured when fetching games" + err);
+            }
+
+        })();
+    }, []);
+
+    const handleChange = (event) => {
+        console.log("lol");
+    }
+
 
     return (
         <Container>
@@ -19,10 +66,32 @@ const Home = () => {
                     Find your perfect home
                 </Typography>
             </div>
-            {/* {slicedGameList.length !== 0 && <DisplayGameList games={slicedGameList} />} */}
+
+            {/* <Box
+                sx={{ display: "flex", justifyContent: "", marginTop: "60px" }}
+            >
+                <FormControl sx={{}}>
+                    <InputLabel id="floor-select-label">Number of Items</InputLabel>
+                    <Select
+                        labelId="floor-select-label"
+                        id="floor-select"
+                        value="adsf"
+                        label="Number of Items"
+                        onChange={handleChange}
+                        name="floor"
+                    >
+                        <MenuItem value={"20"}>1</MenuItem>
+
+                    </Select>
+                </FormControl>
+            </Box> */}
+
+
+            {loading && <Typography variant="body1" color="initial" sx="justifyContent: 'center', justifyText: 'center' ">Loading...</Typography>}
+            {!loading && <HouseCards flats={flatList} />}
 
             <Box
-                sx={{ display: "flex", justifyContent: "center", marginTop: "60px" }}
+                sx={{ display: "flex", justifyContent: "center", mt: "60px", mb: "60px" }}
             >
                 <Button
                     component={Link}
@@ -35,11 +104,9 @@ const Home = () => {
                     View more
                 </Button>
             </Box>
-            <FlatDetails />
-            <HouseCards />
-            <HouseCards />
-            <HouseCards />
-        </Container>
+
+
+        </Container >
     );
 }
 
