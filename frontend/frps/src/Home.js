@@ -15,7 +15,7 @@ import Flat from "./Entity/Flat";
 
 
 const Home = () => {
-    const [flats, setFlats] = useState(null);
+    // const [flats, setFlats] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [flatList, setList] = useState([]);
@@ -44,7 +44,7 @@ const Home = () => {
                     )
                 );
                 console.log("loaded");
-                // console.log(flats);
+                console.log(flats);
                 setLoading(false);
             } catch (err) {
                 console.log("Error occured when fetching games" + err);
@@ -67,7 +67,7 @@ const Home = () => {
                 </Typography>
             </div>
 
-            {/* <Box
+            <Box
                 sx={{ display: "flex", justifyContent: "", marginTop: "60px" }}
             >
                 <FormControl sx={{}}>
@@ -80,11 +80,16 @@ const Home = () => {
                         onChange={handleChange}
                         name="floor"
                     >
-                        <MenuItem value={"20"}>1</MenuItem>
+                        <MenuItem value={"1"}>1</MenuItem>
+                        <MenuItem value={"2"}>2</MenuItem>
+                        <MenuItem value={"3"}>3</MenuItem>
+                        <MenuItem value={"4"}>4</MenuItem>
+                        <MenuItem value={"5"}>5</MenuItem>
+
 
                     </Select>
                 </FormControl>
-            </Box> */}
+            </Box>
 
 
             {loading && <Typography variant="body1" color="initial" sx="justifyContent: 'center', justifyText: 'center' ">Loading...</Typography>}

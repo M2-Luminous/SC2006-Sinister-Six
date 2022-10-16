@@ -28,8 +28,8 @@ function App() {
             <Route path="/filters">
               <Filter />
             </Route>
-            <Route path="/lol">
-              <HouseCards />
+            <Route path="/flat/:flatID">
+              <FlatDetails />
             </Route>
             <Route path="/err">
               <FlatDetails />

@@ -5,20 +5,31 @@ export default class Flat {
     private flatType: string;
     private floorAreaSqm: number;
     private leaseCommenceDate: number;
-    // private month: Date;
+    private month: Date;
     private resalePrice: number;
     private storeyRange: string;
     private streetName: string;
     private town: string;
 
-    constructor(flatID: number, block: string, flatModel: string, flatType: string, floorAreaSqm: number, leaseCommenceDate: number, resalePrice: number, storeyRange: string, streetName: string, town: string) {
+    constructor(
+        flatID: number,
+        block: string,
+        flatModel: string,
+        flatType: string,
+        floorAreaSqm: number,
+        leaseCommenceDate: number,
+        month: Date,
+        resalePrice: number,
+        storeyRange: string,
+        streetName: string,
+        town: string) {
         this.flatID = flatID;
         this.block = block;
         this.flatModel = flatModel;
         this.flatType = flatType;
         this.floorAreaSqm = floorAreaSqm;
         this.leaseCommenceDate = leaseCommenceDate;
-        // this.month = month;
+        this.month = month;
         this.resalePrice = resalePrice;
         this.storeyRange = storeyRange;
         this.streetName = streetName;

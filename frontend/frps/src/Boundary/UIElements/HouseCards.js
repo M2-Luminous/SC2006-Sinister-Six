@@ -1,5 +1,6 @@
-import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material"
+import { Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from "@mui/material"
 import Portal from '../../images/hero.jpg';
+import { Link } from 'react-router-dom';
 
 
 const HouseCards = ({ flats }) => {
@@ -21,144 +22,145 @@ const HouseCards = ({ flats }) => {
                         boxShadow: '0 0 10px 0 rgba(0,0,0,0.5)',
                     },
                 }}>
+                    <CardActionArea sx={{ flexGrow: 1 }} component={Link} to={`/flat/${flat.getFlatID()}`}>
+                        <Grid container spacing={2} columns={12} sx={{ border: 0 }}>
 
-                    <Grid container spacing={2} columns={12} sx={{ border: 0 }}>
+                            <Grid item xs={4} sx={{ border: 0, color: '' }} >
+                                <CardMedia
+                                    component="img"
+                                    height="200"
+                                    image={Portal}
+                                    sx={{
+                                        objectFit: "contain",
+                                        mb: '15px',
+                                        backgroundPosition: 'center',
+                                        textAlign: 'center',
+                                        justifyContent: 'center',
+                                        display: 'flex',
+                                    }}
+                                />
+                            </Grid>
 
-                        <Grid item xs={4} sx={{ border: 0, color: '' }} >
-                            <CardMedia
-                                component="img"
-                                height="200"
-                                image={Portal}
-                                sx={{
-                                    objectFit: "contain",
-                                    mb: '15px',
-                                    backgroundPosition: 'center',
-                                    textAlign: 'center',
-                                    justifyContent: 'center',
-                                    display: 'flex',
-                                }}
-                            />
-                        </Grid>
+                            <Grid item xs={8} sx={{ border: 0, color: '' }}>
+                                <CardContent>
+                                    <Grid container sx={{ border: 0 }}>
+                                        <Grid item xs={12} md={6}>
+                                            <Grid container>
+                                                <Grid item xs={4} marginBottom={2}>
+                                                    <Typography
+                                                        variant="body1"
+                                                        color="text.secondary"
+                                                        component="div"
+                                                    >
+                                                        TOWN
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={8} marginBottom={2}>
+                                                    <Typography variant="body1" component="div">
+                                                        {flat.getTown()}
+                                                    </Typography>
+                                                </Grid>
 
-                        <Grid item xs={8} sx={{ border: 0, color: '' }}>
-                            <CardContent>
-                                <Grid container sx={{ border: 0 }}>
-                                    <Grid item xs={12} md={6}>
-                                        <Grid container>
-                                            <Grid item xs={4} marginBottom={2}>
-                                                <Typography
-                                                    variant="body1"
-                                                    color="text.secondary"
-                                                    component="div"
-                                                >
-                                                    TOWN
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={8} marginBottom={2}>
-                                                <Typography variant="body1" component="div">
-                                                    {flat.getTown()}
-                                                </Typography>
-                                            </Grid>
+                                                <Grid item xs={4} marginBottom={2}>
+                                                    <Typography
+                                                        variant="body1"
+                                                        color="text.secondary"
+                                                        component="div"
+                                                    >
+                                                        STREET
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={8} marginBottom={2}>
+                                                    <Typography variant="body1" component="div">
+                                                        {flat.getStreetName()}
+                                                    </Typography>
+                                                </Grid>
 
-                                            <Grid item xs={4} marginBottom={2}>
-                                                <Typography
-                                                    variant="body1"
-                                                    color="text.secondary"
-                                                    component="div"
-                                                >
-                                                    STREET
-                                                </Typography>
+                                                <Grid item xs={4} marginBottom={2}>
+                                                    <Typography
+                                                        variant="body1"
+                                                        color="text.secondary"
+                                                        component="div"
+                                                    >
+                                                        LEASE COMMENCE
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={8} marginBottom={2}>
+                                                    <Typography variant="body1" component="div">
+                                                        {flat.getLeaseCommenceDate()}
+                                                    </Typography>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item xs={8} marginBottom={2}>
-                                                <Typography variant="body1" component="div">
-                                                    {flat.getStreetName()}
-                                                </Typography>
-                                            </Grid>
+                                        </Grid>
 
-                                            <Grid item xs={4} marginBottom={2}>
-                                                <Typography
-                                                    variant="body1"
-                                                    color="text.secondary"
-                                                    component="div"
-                                                >
-                                                    LEASE COMMENCE
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={8} marginBottom={2}>
-                                                <Typography variant="body1" component="div">
-                                                    {flat.getLeaseCommenceDate()}
-                                                </Typography>
+
+                                        <Grid item xs={12} md={6} marginBottom={1}>
+                                            <Grid container>
+                                                <Grid item xs={5} marginBottom={2}>
+                                                    <Typography
+                                                        variant="body1"
+                                                        color="text.secondary"
+                                                        component="div"
+                                                    >
+                                                        FLAT TYPE
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={7} marginBottom={2}>
+                                                    <Typography variant="body1" component="div">
+                                                        {flat.getFlatType()}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={5} marginBottom={2}>
+                                                    <Typography
+                                                        variant="body1"
+                                                        color="text.secondary"
+                                                        component="div"
+                                                    >
+                                                        FLAT MODEL
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={7} marginBottom={2}>
+                                                    <Typography variant="body1" component="div">
+                                                        {flat.getFlatModel()}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={5} marginBottom={2}>
+                                                    <Typography
+                                                        variant="body1"
+                                                        color="text.secondary"
+                                                        component="div"
+                                                    >
+                                                        AREA
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={7} marginBottom={2}>
+                                                    <Typography variant="body1" component="div">
+                                                        {flat.getFloorAreaSqm()}
+                                                    </Typography>
+                                                </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
 
 
-                                    <Grid item xs={12} md={6} marginBottom={1}>
-                                        <Grid container>
-                                            <Grid item xs={5} marginBottom={2}>
-                                                <Typography
-                                                    variant="body1"
-                                                    color="text.secondary"
-                                                    component="div"
-                                                >
-                                                    FLAT TYPE
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={7} marginBottom={2}>
-                                                <Typography variant="body1" component="div">
-                                                    {flat.getFlatType()}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={5} marginBottom={2}>
-                                                <Typography
-                                                    variant="body1"
-                                                    color="text.secondary"
-                                                    component="div"
-                                                >
-                                                    FLAT MODEL
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={7} marginBottom={2}>
-                                                <Typography variant="body1" component="div">
-                                                    {flat.getFlatModel()}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={5} marginBottom={2}>
-                                                <Typography
-                                                    variant="body1"
-                                                    color="text.secondary"
-                                                    component="div"
-                                                >
-                                                    AREA
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={7} marginBottom={2}>
-                                                <Typography variant="body1" component="div">
-                                                    {flat.getFloorAreaSqm()}
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
 
-
-
-                                {/* <Typography variant="body2" color="text.secondary">
+                                    {/* <Typography variant="body2" color="text.secondary">
                                 Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
                                 across all continents except Antarctica
                             </Typography> */}
-                            </CardContent>
+                                </CardContent>
 
 
-                            <Typography gutterBottom variant="h5" component="div" sx={{
-                                display: 'flex',
-                                justifyContent: 'flex-end',
-                            }}>
-                                {/* {flat.getPrice()} */}
-                            </Typography>
+                                <Typography gutterBottom variant="h5" component="div" sx={{
+                                    display: 'flex',
+                                    justifyContent: 'flex-end',
+                                }}>
+                                    {flat.getPrice()}
+                                </Typography>
 
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </CardActionArea>
                 </Card >
             </div >
         ))

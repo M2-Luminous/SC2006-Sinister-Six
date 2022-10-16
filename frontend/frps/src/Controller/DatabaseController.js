@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query, where } from "firebase/firestore";
 
 // const firebaseConfig = {
 //     apiKey: "AIzaSyAO1UltJ3w_L0PihYZh5yOAqc3tZzKMjlY",
@@ -32,6 +32,12 @@ export const getFlats = async () => {
     return await getDocs(q);
 }
 
+export const getOneFlat = async (flatID) => {
+    // let ref = doc(db, "flats", flatID);
+    // return await getDoc(ref);
+    let ref = doc(db, "flats", flatID);
+    return await getDoc(ref);
+}
 // export const getFlats = async () => {
 //     let ref = collection(db, "flats");
 //     return getDocs(ref);
