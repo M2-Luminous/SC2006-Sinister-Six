@@ -1,13 +1,10 @@
-import { Container, Grid, Card, Typography, CardMedia, CardContent } from '@mui/material';
-import { connectFirestoreEmulator } from 'firebase/firestore';
+import { Container, Grid, Card, Typography, CardMedia, CardContent, Button } from '@mui/material';
 import Portal from '../images/hero.jpg';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getOneFlat } from '../Controller/DatabaseController';
 import Flat from '../Entity/Flat';
-import { doc } from 'firebase/firestore';
-import { ConstructionOutlined } from '@mui/icons-material';
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 const FlatDetails = () => {
@@ -46,7 +43,7 @@ const FlatDetails = () => {
                     setFlat(results);
                 }
             } catch (err) {
-                console.log("Error occured when fetching games" + err);
+                console.log("ERROR:" + err);
             }
 
         })();
@@ -54,12 +51,16 @@ const FlatDetails = () => {
 
 
     return (
-        <div>
-            {loading && <div>Loading...</div>}
+        <Container sx={{ mt: '30px' }}>
+            <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} component={Link} to={'/home'} >
+                Back
+            </Button>
+
+            {loading && <Container>Loading...</Container>}
             {!loading &&
 
                 <Card sx={{
-                    mt: '30px',
+                    mt: '20px',
                     minHeight: 500,
                     maxHeight: 500,
                     borderRadius: '20px',
@@ -94,7 +95,7 @@ const FlatDetails = () => {
                                     display: 'flex',
                                     justifyContent: 'flex-end',
                                 }}>
-                                    {flat.getPrice()}
+                                    ${flat.getPrice()}
                                 </Typography>
                             </Container>
                             <CardContent>
@@ -204,8 +205,9 @@ const FlatDetails = () => {
                             </Typography>
                         </Container>
                     </Grid>
-                </Card >}
-        </div>
+                </Card >
+            }
+        </Container>
     );
 
 }

@@ -44,10 +44,9 @@ const Home = () => {
                     )
                 );
                 console.log("loaded");
-                console.log(flats);
                 setLoading(false);
             } catch (err) {
-                console.log("Error occured when fetching games" + err);
+                console.log("ERROR" + err);
             }
 
         })();
