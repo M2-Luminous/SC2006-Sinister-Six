@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Stack from '@mui/material/Stack';
-import Item from '@mui/material/Stack';
+import AddIcon from '@mui/icons-material/Add';
 
 
 import FlatDetails from './Boundary/FlatDetails';
@@ -92,6 +92,7 @@ const Home = () => {
                     )
                 );
                 setLoadingMore(false);
+                console.log(flats);
                 // update latestDoc
                 setLastDoc(flats.docs[flats.docs.length - 1]);
             } catch (err) {
@@ -173,15 +174,10 @@ const Home = () => {
                     size="medium"
                     style={{ minWidth: "80px", minHeight: "30px" }}
                     onClick={handleViewMore}
-                // endIcon={<NavigateNextIcon />}
+                    startIcon={
+                        loadingMore ? <CircularProgress size={20} color="secondary" /> : <AddIcon />}
                 >
-                    {loadingMore &&
-                        <CircularProgress
-                            color="secondary"
-                            fontSize="large"
-                        />}
-
-                    {!loadingMore && "View More"}
+                    View More
                 </Button>
             </Box>
 
