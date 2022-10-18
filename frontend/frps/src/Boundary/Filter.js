@@ -95,24 +95,34 @@ const leaseDates = () => {
 const Filter = () => {
 
     const [filter, setFilter] = useState({
-        townName: '',
-        noOfRooms: '',
-        floor: '',
-        floorArea: '',
-        flatModel: '',
-        leaseStartDate: ''
+        townName: 'CHOA CHU KANG',
+        noOfRooms: '5 ROOM',
+        floor: '12',
+        floorArea: '120',
+        flatModel: 'MODEL A',
+        leaseStartDate: '1999'
     });
 
     const test = () => {
         console.log("STRINGYFYING");
         console.log(JSON.stringify(filter));
-        // console.log(filter);
+            // console.log(filter);
 
         // fetch from server
-
-
+        const stringFilter = JSON.stringify(filter);
+        const response = fetch('https://sinistersix-a7294.web.app:3001/filterReq', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {"Content-type": "application/json;charset=UTF-8"},
+            body: stringFilter
+        })
+        .then(response => response.json())
+        .then(data => {
+            price = data;
+            console.log(data);
+        })
+        .catch(err => console.log(err));
     }
-
 
     const handleChange = (event) => {
         setFilter({ ...filter, [event.target.name]: event.target.value });
