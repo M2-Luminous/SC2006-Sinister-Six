@@ -51,9 +51,13 @@ const FlatDetails = () => {
         })();
     }, []);
 
+    // const handleBack = () => {
+    //     window.history.back();
+    // }
+
 
     return (
-        <Container sx={{ mt: '30px' }}>
+        <Container sx={{ my: '30px' }}>
             <Button variant="contained" color="secondary" startIcon={<ArrowBackIcon />} component={Link} to={'/home'} >
                 Back
             </Button>
