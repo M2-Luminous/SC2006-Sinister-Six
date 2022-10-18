@@ -69,3 +69,5 @@
         }
     ]
 }
+
+data={"townName": "CHOA CHU KANG", "noOfRooms": "5 ROOM", "floor": "1", "floorArea": "120", "flatModel": "New Generation", "leaseStartDate": "1998"}
