@@ -29,8 +29,11 @@ prompt.get(['town_number', 'filterObj['roomNo']]',  filterObj['roomNo'], 'filter
 //let filterObj['model'] = Filter['model']
 const formula = (filterObj) =>
 {
+  return (1 * 0.000126835529) + (filterObj['town'] * -1267.22925) +  (filterObj['roomNo'] * 51265.9926) + ( filterObj['model'] * -475.249476) +  (filterObj['floor'] * 4993.93695) + (filterObj['area'] * 1246.50570) +  (filterObj['leaseStartDate'] * 2993.44958) + (-6155097.82499992);
   switch(filterObj['town'])
   {
+    case 0:
+      return (month * 0.000126835529) + (town * -1267.22925) +  (flat_type * 51265.9926) + (flat_model * -475.249476) +  (storey_range * 4993.93695) + (floor_area_sqm * 1246.50570) +  (lease_commence_date * 2993.44958) + (-6155097.82499992);
     case 1:
       return -172418585.71 + -237464.29 * filterObj['model'] + 40792.86 * filterObj['roomNo'] + 58314.29 * filterObj['floor']+ 4464.29 * filterObj['area'] + 86935.71 * filterObj['leaseStartDate'];
     case 2:
