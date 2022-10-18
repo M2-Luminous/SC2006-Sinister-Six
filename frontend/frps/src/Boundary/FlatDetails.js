@@ -3,9 +3,10 @@ import Portal from '../images/hero.jpg';
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getOneFlat } from '../Controller/DatabaseController';
-import Flat from '../Entity/Flat';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CircularProgress from '@mui/material/CircularProgress';
+
+import Flat from '../Entity/Flat';
 
 
 const FlatDetails = () => {

@@ -2,17 +2,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
-import Link from '@mui/material/Link';
-import HeroCard from './Boundary/UIElements/HeroCard';
-import HouseCards from './Boundary/UIElements/HouseCards';
 import { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 
-
-import FlatDetails from './Boundary/FlatDetails';
+import HeroCard from './Boundary/UIElements/HeroCard';
+import HouseCards from './Boundary/UIElements/HouseCards';
 import { getFlats, getMoreFlats } from './Controller/DatabaseController';
 import Flat from "./Entity/Flat";
 
@@ -178,8 +175,7 @@ const Home = () => {
                     size="medium"
                     style={{ minWidth: "80px", minHeight: "30px" }}
                     onClick={handleViewMore}
-                    startIcon={
-                        loadingMore ? <CircularProgress size={20} color="secondary" /> : <AddIcon />}
+                    startIcon={loadingMore ? <CircularProgress size={20} color="secondary" /> : <AddIcon />}
                 >
                     View More
                 </Button>

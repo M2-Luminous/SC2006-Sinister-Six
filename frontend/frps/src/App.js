@@ -1,15 +1,13 @@
 import './App.css';
-import Navbar from './Navbar';
 import Home from './Home';
-import Filter from './Boundary/Filter';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; //npm install react-router-dom@5
-
-// import logo from './logo.svg';
-// import Test from './Test';
-import HouseCards from './Boundary/UIElements/HouseCards.js';
-import FlatDetails from './Boundary/FlatDetails';
-import Test from './Test';
 import HomeTest from './HomeTest';
+import { Feedback } from '@mui/icons-material';
+
+import Filter from './Boundary/Filter';
+import FlatDetails from './Boundary/FlatDetails';
+import Navbar from './Boundary/UIElements/Navbar';
+import Footer from './Boundary/UIElements/Footer';
 
 
 
@@ -35,11 +33,12 @@ function App() {
             <Route path="/err">
               <HomeTest />
             </Route>
-            <Route path="/dbtest">
-              <Test />
+            <Route path="/feedback">
+              <Feedback />
             </Route>
           </Switch>
         </div>
+        <Footer />
       </div>
     </Router>
   );
