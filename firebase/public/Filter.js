@@ -9,7 +9,7 @@ let dateTime;
 const app = express();
 const router = express.Router();
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000', }));
+app.use(cors({ origin: 'http://sinistersix-a7294.web.app:3000', }));
 var allowCrossDomain = function(req,res,next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
