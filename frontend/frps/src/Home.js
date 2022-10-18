@@ -27,8 +27,7 @@ const Home = () => {
     const [error, setError] = useState(null);
     const [flatList, setList] = useState([]);
     const [sortBy, setSortBy] = useState(1);
-    const [noOfItems, setnoOfItems] = useState(5);
-
+    const [noOfItems, setnoOfItems] = useState(10);
 
     useEffect(() => {
         console.log("fetching..");
@@ -57,6 +56,7 @@ const Home = () => {
                 console.log("loaded");
                 setLoading(false);
                 // update latestDoc
+                // console.log(flats);
                 setLastDoc(flats.docs[flats.docs.length - 1]);
             } catch (err) {
                 console.log("ERROR" + err);
@@ -148,11 +148,11 @@ const Home = () => {
                         <FormControl sx={{ width: '7rem' }}>
                             <InputLabel id="no-of-items-label">No Of Items</InputLabel>
                             <Select labelId="no-of-items-label" id="no-of-items" value={noOfItems} label="No Of Items" onChange={handleNoItemsChange}>
-                                <MenuItem value={1}>1</MenuItem>
-                                <MenuItem value={2}>2</MenuItem>
-                                <MenuItem value={3}>3</MenuItem>
-                                <MenuItem value={4}>4</MenuItem>
-                                <MenuItem value={5}>5</MenuItem>
+                                <MenuItem value={10}>10</MenuItem>
+                                <MenuItem value={20}>20</MenuItem>
+                                <MenuItem value={30}>30</MenuItem>
+                                <MenuItem value={40}>40</MenuItem>
+                                <MenuItem value={50}>50</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
@@ -161,8 +161,12 @@ const Home = () => {
 
 
 
-            {loading &&
-                <Container sx={{ display: "flex", justifyContent: "center", marginTop: "60px" }}><CircularProgress /></Container>}
+            {loading && <Container sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "60px"
+            }}><CircularProgress /></Container>
+            }
 
             {!loading && <HouseCards flats={flatList} />}
 
@@ -180,9 +184,8 @@ const Home = () => {
                     View More
                 </Button>
             </Box>
-
-
         </Container >
+
     );
 }
 

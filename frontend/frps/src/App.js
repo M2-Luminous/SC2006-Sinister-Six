@@ -1,7 +1,7 @@
 import './App.css';
 import Navbar from './Navbar';
 import Home from './Home';
-import Filter from './Filter';
+import Filter from './Boundary/Filter';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; //npm install react-router-dom@5
 
 // import logo from './logo.svg';

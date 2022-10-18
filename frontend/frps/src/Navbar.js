@@ -20,7 +20,6 @@ const pages = ['home', 'filters'];
 const settings = ['Admin Login'];
 
 
-
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
