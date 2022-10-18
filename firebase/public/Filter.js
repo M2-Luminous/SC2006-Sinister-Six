@@ -32,6 +32,7 @@ fs.readFile("./resources/data/conversion.json", "utf8", (err, jsonString) => {
     //TestProgram
     //test(); 
     //console.log(formula(Filter()));
+    //data={"townName": "CHOA CHU KANG", "noOfRooms": "5 ROOM", "floor": "1", "floorArea": "120", "flatModel": "New Generation", "leaseStartDate": "1998"}
 });
 
 let area = -1;
@@ -113,6 +114,6 @@ res.end();
     res.status(200).json({price: '1'});
 });*/
 
-app.listen(5001, () => {
+app.listen(3001, () => {
     console.log(`Server is running on port 3001.`);
 });
