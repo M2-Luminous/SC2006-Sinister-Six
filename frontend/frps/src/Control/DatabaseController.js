@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query, orderBy, startAfter } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query, orderBy, startAfter, serverTimestamp } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAO1UltJ3w_L0PihYZh5yOAqc3tZzKMjlY",
@@ -11,6 +11,7 @@ const firebaseConfig = {
     measurementId: "G-SLWEFXJ12L"
 };
 
+// backup firestore incase we hit the limit
 // const firebaseConfig = {
 //     apiKey: "AIzaSyD2X-yBfawUzAuEv0Dk8mw3N4tpGoAJFv0",
 //     authDomain: "escendotwo.firebaseapp.com",
@@ -99,6 +100,19 @@ export const getOneFlat = async (flatID) => {
     let ref = doc(db, "data", flatID);
     return await getDoc(ref);
 }
+
+export const writeFeedback = async (docData) => {
+    // const docData = {
+    //     name: "asdfasdf Lovelace",
+    //     email: "dfsdf@asdas.com",
+    //     feedback: "this is a test feedback"
+    // };
+
+    console.log("sending data: " + docData);
+
+    return await addDoc(collection(db, "feedback"), docData);
+}
+
 // export const getFlats = async () => {
 //     let ref = collection(db, "flats");
 //     return getDocs(ref);

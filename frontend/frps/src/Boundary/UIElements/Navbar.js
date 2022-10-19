@@ -16,6 +16,8 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
 
+
+
 const pages = ['home', 'filters'];
 const settings = ['Admin Login'];
 
@@ -85,7 +87,7 @@ const Navbar = () => {
 
 
     return (
-        <AppBar position="sticky" elevation={0} sx={{}}>
+        <AppBar position="sticky" elevation={0} sx={{ mb: 3 }}>
             <Container sx={{ p: 0 }}>
                 <Toolbar disableGutters>
                     <Typography
@@ -126,15 +128,19 @@ const Navbar = () => {
                     </Box>
 
                     <Box sx={{ flexGrow: 0, mr: 2 }}>
-                        <Search>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search…"
-                                inputProps={{ 'aria-label': 'search' }}
-                            />
-                        </Search>
+                        <Button
+                            // key={page}
+                            // onClick={handleCloseNavMenu}
+                            sx={{
+                                my: 2,
+                                color: 'white',
+                                display: 'block',
+                                // fontSize: 'rem',
+                            }}
+                            href={"/feedback"}
+                        >
+                            Feedback
+                        </Button>
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>

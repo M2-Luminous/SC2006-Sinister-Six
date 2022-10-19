@@ -133,7 +133,7 @@ const Filter = () => {
 
     return (
         <Container>
-            <Card sx={{ mt: 2, ml: "auto", mr: "auto" }} >
+            <Card sx={{ ml: "auto", mr: "auto" }} >
                 <CardContent>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         Filter
