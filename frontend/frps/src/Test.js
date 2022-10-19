@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 import Flat from "./Entity/Flat";
 
-import { getFlats } from "./Controller/DatabaseController";
+import { getFlats } from "./Control/DatabaseController";
 import HouseCards from "./Boundary/UIElements/HouseCards";
 
 const Test = () => {

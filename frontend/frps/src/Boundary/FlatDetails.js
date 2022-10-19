@@ -2,7 +2,7 @@ import { Container, Grid, Card, Typography, CardMedia, CardContent, Button } fro
 import Portal from '../images/hero.jpg';
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getOneFlat } from '../Controller/DatabaseController';
+import { getOneFlat } from '../Control/DatabaseController';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CircularProgress from '@mui/material/CircularProgress';
 

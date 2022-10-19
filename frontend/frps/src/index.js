@@ -8,7 +8,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import '@fontsource/roboto/900.css';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './Controller/Theme';
+import theme from './Control/Theme';
 import CssBaseline from '@mui/material/CssBaseline';
 
 

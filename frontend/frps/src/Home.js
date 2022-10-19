@@ -10,7 +10,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 import HeroCard from './Boundary/UIElements/HeroCard';
 import HouseCards from './Boundary/UIElements/HouseCards';
-import { getFlats, getMoreFlats } from './Controller/DatabaseController';
+import { getFlats, getMoreFlats } from './Control/DatabaseController';
 import Flat from "./Entity/Flat";
 
 
