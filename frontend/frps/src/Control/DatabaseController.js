@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query, orderBy, startAfter, serverTimestamp } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query, orderBy, startAfter, deleteDoc } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAO1UltJ3w_L0PihYZh5yOAqc3tZzKMjlY",
@@ -95,21 +95,11 @@ export const getMoreFlats = async (sortBy, viewNo, lastDoc) => {
 }
 
 export const getOneFlat = async (flatID) => {
-    // let ref = doc(db, "flats", flatID);
-    // return await getDoc(ref);
     let ref = doc(db, "data", flatID);
     return await getDoc(ref);
 }
 
 export const writeFeedback = async (docData) => {
-    // const docData = {
-    //     name: "asdfasdf Lovelace",
-    //     email: "dfsdf@asdas.com",
-    //     feedback: "this is a test feedback"
-    // };
-
-    console.log("sending data: " + docData);
-
     return await addDoc(collection(db, "feedback"), docData);
 }
 
@@ -118,13 +108,14 @@ export const confirmAdminCreds = async (email) => {
     return await getDoc(ref);
 }
 
+export const getFeedbacks = async () => {
+    let ref = collection(db, "feedback");
+    let q = query(ref, orderBy("createdAt", "desc"));
+    return await getDocs(q);
+}
 
-// export const getFlats = async () => {
-//     let ref = collection(db, "flats");
-//     return getDocs(ref);
-// }
-
-// export const getFeedbacks = async () => {
-//     let ref = collection(db, "feedback");
-//     return getDocs(ref);
-// }
+export const delFeedback = async (id) => {
+    let ref = doc(db, "feedback", id);
+    console.log("deleting feedback: " + id);
+    return await deleteDoc(ref);
+}
