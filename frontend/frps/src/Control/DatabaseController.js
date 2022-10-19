@@ -113,6 +113,12 @@ export const writeFeedback = async (docData) => {
     return await addDoc(collection(db, "feedback"), docData);
 }
 
+export const confirmAdminCreds = async (email) => {
+    let ref = doc(db, "creds", email);
+    return await getDoc(ref);
+}
+
+
 // export const getFlats = async () => {
 //     let ref = collection(db, "flats");
 //     return getDocs(ref);

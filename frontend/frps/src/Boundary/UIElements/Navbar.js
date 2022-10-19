@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 
 
@@ -166,11 +167,17 @@ const Navbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
+                            {/* {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
-                            ))}
+                            ))} */}
+
+                            <MenuItem key="adminlogin" onClick={handleCloseUserMenu} component={Link}
+                                to={"/admin"}>
+                                <Typography textAlign="center">Admin Login</Typography>
+                            </MenuItem>
+
                         </Menu>
                     </Box>
                 </Toolbar>
