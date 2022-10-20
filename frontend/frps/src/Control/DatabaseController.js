@@ -99,6 +99,22 @@ export const getOneFlat = async (flatID) => {
     return await getDoc(ref);
 }
 
+export const getGraphFlat = async (townName, streetName, leaseCommence, flatType, flatModel, floorArea) => {
+    let ref = collection(db, "data");
+    let q = query(
+        ref,
+        where("town" == townName),
+        where("street_name" == streetName),
+        where("lease_commence" == leaseCommence),
+        where("flat_type" == flatType),
+        where("flat_model" == flatModel),
+        where("floor_area" == floorArea),
+        limit(5));
+
+    return await getDocs(q);
+}
+
+
 export const writeFeedback = async (docData) => {
     return await addDoc(collection(db, "feedback"), docData);
 }
