@@ -10,7 +10,7 @@ const HeroCard = () => {
         <Paper className="paperContainer" style={{
             backgroundImage: `url(${heroImage}`, backgroundPosition: "center center", backgroundSize: "cover"
         }} sx={{
-            mt: '20px',
+            // mt: '20px',
             minHeight: 300,
             borderRadius: '20px',
             padding: '4rem',

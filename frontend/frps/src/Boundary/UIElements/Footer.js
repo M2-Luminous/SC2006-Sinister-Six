@@ -5,15 +5,26 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 
+
 function Copyright() {
     return (
         <Typography variant="body2" color="text.secondary">
             {'Copyright © '}
-            <Link color="inherit" href="https://sinistersix-a7294.web.app">
+            <Link color="inherit" href={"/"}>
                 FRPS
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
+        </Typography>
+    );
+}
+
+const FeedbackLink = () => {
+    return (
+        <Typography variant="body2" color="text.secondary">
+            <Link href={"/feedback"} variant="body2" color="inherit">
+                {'Feedback'}
+            </Link>
         </Typography>
     );
 }
@@ -23,8 +34,11 @@ export default function StickyFooter() {
         <Box
             sx={{
                 display: 'flex',
+                bottom: 0,
                 flexDirection: 'column',
-                minHeight: '15rem',
+                minHeight: '350px',
+                mt: '60px',
+                width: '100%'
             }}
         >
             <CssBaseline />
@@ -45,6 +59,7 @@ export default function StickyFooter() {
                         FRPS -- Helping you find your next home.
                     </Typography>
                     <Copyright />
+                    <FeedbackLink />
                 </Container>
             </Box>
         </Box>

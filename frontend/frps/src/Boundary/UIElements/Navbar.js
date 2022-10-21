@@ -14,6 +14,9 @@ import MenuItem from '@mui/material/MenuItem';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
+
+
 
 
 const pages = ['home', 'filters'];
@@ -85,7 +88,7 @@ const Navbar = () => {
 
 
     return (
-        <AppBar position="sticky" elevation={0} sx={{}}>
+        <AppBar position="sticky" elevation={0} sx={{ mb: 3 }}>
             <Container sx={{ p: 0 }}>
                 <Toolbar disableGutters>
                     <Typography
@@ -126,15 +129,19 @@ const Navbar = () => {
                     </Box>
 
                     <Box sx={{ flexGrow: 0, mr: 2 }}>
-                        <Search>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search…"
-                                inputProps={{ 'aria-label': 'search' }}
-                            />
-                        </Search>
+                        <Button
+                            // key={page}
+                            // onClick={handleCloseNavMenu}
+                            sx={{
+                                my: 2,
+                                color: 'white',
+                                display: 'block',
+                                // fontSize: 'rem',
+                            }}
+                            href={"/feedback"}
+                        >
+                            Feedback
+                        </Button>
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
@@ -160,11 +167,17 @@ const Navbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
+                            {/* {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
-                            ))}
+                            ))} */}
+
+                            <MenuItem key="adminlogin" onClick={handleCloseUserMenu} component={Link}
+                                to={"/admin"}>
+                                <Typography textAlign="center">Admin Login</Typography>
+                            </MenuItem>
+
                         </Menu>
                     </Box>
                 </Toolbar>

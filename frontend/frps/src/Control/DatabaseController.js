@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query, orderBy, startAfter } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query, orderBy, startAfter, deleteDoc } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAO1UltJ3w_L0PihYZh5yOAqc3tZzKMjlY",
@@ -11,6 +11,7 @@ const firebaseConfig = {
     measurementId: "G-SLWEFXJ12L"
 };
 
+// backup firestore incase we hit the limit
 // const firebaseConfig = {
 //     apiKey: "AIzaSyD2X-yBfawUzAuEv0Dk8mw3N4tpGoAJFv0",
 //     authDomain: "escendotwo.firebaseapp.com",
@@ -94,17 +95,43 @@ export const getMoreFlats = async (sortBy, viewNo, lastDoc) => {
 }
 
 export const getOneFlat = async (flatID) => {
-    // let ref = doc(db, "flats", flatID);
-    // return await getDoc(ref);
     let ref = doc(db, "data", flatID);
     return await getDoc(ref);
 }
-// export const getFlats = async () => {
-//     let ref = collection(db, "flats");
-//     return getDocs(ref);
-// }
 
-// export const getFeedbacks = async () => {
-//     let ref = collection(db, "feedback");
-//     return getDocs(ref);
-// }
+export const getGraphFlat = async (townName, streetName, leaseCommence, flatType, flatModel, floorArea) => {
+    let ref = collection(db, "data");
+    let q = query(
+        ref,
+        where("town" == townName),
+        where("street_name" == streetName),
+        where("lease_commence" == leaseCommence),
+        where("flat_type" == flatType),
+        where("flat_model" == flatModel),
+        where("floor_area" == floorArea),
+        limit(5));
+
+    return await getDocs(q);
+}
+
+
+export const writeFeedback = async (docData) => {
+    return await addDoc(collection(db, "feedback"), docData);
+}
+
+export const confirmAdminCreds = async (email) => {
+    let ref = doc(db, "creds", email);
+    return await getDoc(ref);
+}
+
+export const getFeedbacks = async () => {
+    let ref = collection(db, "feedback");
+    let q = query(ref, orderBy("createdAt", "desc"));
+    return await getDocs(q);
+}
+
+export const delFeedback = async (id) => {
+    let ref = doc(db, "feedback", id);
+    console.log("deleting feedback: " + id);
+    return await deleteDoc(ref);
+}
