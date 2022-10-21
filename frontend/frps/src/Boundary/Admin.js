@@ -8,9 +8,6 @@ import { Alert } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { CardActionArea, CardActions } from '@mui/material';
 
 
 // Feedbacks imports
@@ -19,10 +16,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-import TablePagination from '@mui/material/TablePagination';
-import UploadIcon from '@mui/icons-material/Upload';
-import DownloadIcon from '@mui/icons-material/Download';
-import Checkbox from '@mui/material/Checkbox';
 
 import FeedbackClass from '../Entity/FeedbackClass';
 

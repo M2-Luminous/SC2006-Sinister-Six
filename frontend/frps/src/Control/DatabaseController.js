@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query, orderBy, startAfter, deleteDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, limit, query, orderBy, startAfter, deleteDoc, where } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAO1UltJ3w_L0PihYZh5yOAqc3tZzKMjlY",
@@ -99,21 +99,49 @@ export const getOneFlat = async (flatID) => {
     return await getDoc(ref);
 }
 
+// Filter handlers
+
+export const getFilteredFlats = async (townName, noOfRooms) => {
+    console.log("calledFilteredFlats");
+    const q = query(
+        collection(db, "data"),
+        orderBy("resale_price"),
+        where("town", "==", townName),
+        where("flat_type", "==", noOfRooms),
+        limit(50)
+    );
+
+    return await getDocs(q);
+}
+
+
+// await Promise.all([getDocs(q), getDocs(q1)]).then((values) => {
+//     allData = values;
+//     //print allData
+
+// });
+
+
+// Graph handlers
+
 export const getGraphFlat = async (townName, streetName, leaseCommence, flatType, flatModel, floorArea) => {
     let ref = collection(db, "data");
     let q = query(
         ref,
-        where("town" == townName),
-        where("street_name" == streetName),
-        where("lease_commence" == leaseCommence),
-        where("flat_type" == flatType),
-        where("flat_model" == flatModel),
-        where("floor_area" == floorArea),
+        where("town" === townName),
+        where("street_name" === streetName),
+        where("lease_commence" === leaseCommence),
+        where("flat_type" === flatType),
+        where("flat_model" === flatModel),
+        where("floor_area" === floorArea),
         limit(5));
 
     return await getDocs(q);
 }
 
+
+
+// Feedback handlers
 
 export const writeFeedback = async (docData) => {
     return await addDoc(collection(db, "feedback"), docData);
