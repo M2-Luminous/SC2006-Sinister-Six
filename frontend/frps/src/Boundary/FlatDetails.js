@@ -7,7 +7,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import Flat from '../Entity/Flat';
+import React from 'react';
+import {GoogleMap,useLoadScript,MarkerF} from '@react-google-maps/api';
 
+
+var center = {lat: 1.3, lng: 106};
 
 const FlatDetails = () => {
 
@@ -43,6 +47,8 @@ const FlatDetails = () => {
                         oneFlat.data().town
                     )
                     setFlat(results);
+                    center = coor (oneFlat.data().town);
+                    console.log (center);
                 }
             } catch (err) {
                 console.log("ERROR:" + err);
@@ -55,6 +61,81 @@ const FlatDetails = () => {
     //     window.history.back();
     // }
 
+    const {isLoaded} = useLoadScript ({
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+    })
+
+    const towns = [
+        "ANG MO KIO",
+        "BEDOK",
+        "BISHAN",
+        "BUKIT BATOK",
+        "BUKIT MERAH",
+        "BUKIT PANJANG",
+        "BUKIT TIMAH",
+        "CENTRAL AREA",
+        "CHOA CHU KANG",
+        "CLEMENTI",
+        "GEYLANG",
+        "HOUGANG",
+        "JURONG EAST",
+        "JURONG WEST",
+        "KALLANG/WHAMPOA",
+        "LIM CHU KANG",
+        "MARINA PARADE",
+        "PASIR RIS",
+        "PUNGGOL",
+        "QUEENSTOWN",
+        "SEMBAWANG",
+        "SENGKANG",
+        "SERANGOON",
+        "TAMPINES",
+        "TOA PAYOH",
+        "WOODLANDS",
+        "YISHUN"
+    ]
+    const coordinates = [
+        {lat:1.3691,long:103.8454},
+        {lat:1.3236,long:103.9273},
+        {lat:1.3526,long:103.8352},
+        {lat:1.3590,long:103.7637},
+        {lat:1.2819,long:103.8239},
+        {lat:1.3774,long:103.7719},
+        {lat:1.3294,long:103.8021},
+        {lat:1.2789,long:103.8536},
+        {lat:1.3840,long:103.7470},
+        {lat:1.3162,long:103.7649},
+        {lat:1.3201,long:103.8918},
+        {lat:1.3612,long:103.8863},
+        {lat:1.3329,long:103.7436},
+        {lat:1.3404,long:103.7090},
+        {lat:1.3245,long:103.8572},
+        {lat:1.4305,long:103.7173},
+        {lat:1.3020,long:103.8971},
+        {lat:1.3721,long:103.9474},
+        {lat:1.3984,long:103.9072},
+        {lat:1.2942,long:103.7861},
+        {lat:1.4491,long:103.8185},
+        {lat:1.3868,long:103.8914},
+        {lat:1.3554,long:103.8679},
+        {lat:1.3496,long:103.9568},
+        {lat:1.3343,long:103.8563},
+        {lat:1.4382,long:103.7890},
+        {lat:1.4304,long:103.8354}
+    ]
+    
+    function coor (address){
+        for (var j =0 ;j<26;j++)
+        {
+            if (address==towns[j])
+            {
+                const {lat,long} =coordinates[j];
+                const center = { lat: lat, lng: long};
+                console.log(center)
+                return center;
+            }
+        }
+    }
 
     return (
         <Container sx={{ my: '30px' }}>
@@ -208,7 +289,13 @@ const FlatDetails = () => {
                         </Grid>
                         <Container>
                             <Typography>
-                                map goes here
+                                <GoogleMap
+                                zoom={13}
+                                center={center}
+                                mapContainerStyle={{width:"100%",height:"50vh"}}
+                                >
+                                    <MarkerF position={center} />
+                                </GoogleMap>
                             </Typography>
                         </Container>
                     </Grid>
