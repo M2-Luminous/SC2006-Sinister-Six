@@ -2,7 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const cors = require('cors'); 
 const bodyParser = require('body-parser');
-//const formula = require('./formula');
+const formula = require('./formula');
 //const functions = require('firebase-functions');
 //const admin = require('firebase-admin');
 let conversion;
