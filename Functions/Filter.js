@@ -2,7 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const cors = require('cors'); 
 const bodyParser = require('body-parser');
-const formula = require('./formula');
+//const formula = require('./formula');
 //const functions = require('firebase-functions');
 //const admin = require('firebase-admin');
 let conversion;
@@ -28,7 +28,7 @@ var allowCrossDomain = function(req,res,next) {
   const db = admin.firestore();*/
 
 //Read conversion.json
-fs.readFile("../resources/data/conversion.json", "utf8", (err, jsonString) => {
+fs.readFile("./resources/data/conversion.json", "utf8", (err, jsonString) => {
     if (err) {
         console.log("File read failed:", err);
         return;
