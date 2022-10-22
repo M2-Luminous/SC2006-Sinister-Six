@@ -34,7 +34,7 @@ fs.readFile("./resources/data/conversion.json", "utf8", (err, jsonString) => {
         return;
     }
     conversion = JSON.parse(jsonString);
-    townData = conversion.town;
+    townData = conversion.town; 
     flatData = conversion.flatType;
     roomNoData = conversion.roomNumber;
 
@@ -120,9 +120,9 @@ console.log('Data sent ' + JSON.stringify(formula(Filter())));
 res.end();
 });
 
-app.get("/filterReq", (req, res) => {
+/*app.get("/filterReq", (req, res) => {
     res.sendFile('./index.html');
-})
+})*/
 /*app.get("/test", (req, res) => {
     const rawData = req.body;
     //res.send({price: '1'});
