@@ -3,8 +3,8 @@ const express = require('express');
 const cors = require('cors'); 
 const bodyParser = require('body-parser');
 const formula = require('./formula');
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
+//const functions = require('firebase-functions');
+//const admin = require('firebase-admin');
 let conversion;
 let townData;
 let dateTime;
@@ -20,12 +20,12 @@ var allowCrossDomain = function(req,res,next) {
   }
   app.use(allowCrossDomain);
 
-  var serviceAccount = require("./permissions.json");
+  /*var serviceAccount = require("./permissions.json");
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
     //databaseURL: "https://fir-api-9a206..firebaseio.com"
   });
-  const db = admin.firestore();
+  const db = admin.firestore();*/
 
 //Read conversion.json
 fs.readFile("../resources/data/conversion.json", "utf8", (err, jsonString) => {
