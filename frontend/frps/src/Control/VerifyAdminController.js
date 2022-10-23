@@ -1,5 +1,13 @@
 import { confirmAdminCreds } from "./DatabaseController";
 
+
+
+/**
+ * This function verifies the user's login credentials
+ * @param {string} email The email of the user
+ * @param {string} password The password of the user
+ * @returns true if user has been verified, false otherwise
+ */
 export const verifyAdmin = async (email, password) => {
 
     return await confirmAdminCreds(email, password).then((doc) => {

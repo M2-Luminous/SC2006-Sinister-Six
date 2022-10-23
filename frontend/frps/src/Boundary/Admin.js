@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { verifyAdmin } from '../Control/VerifyAdmin';
+import { verifyAdmin } from '../Control/VerifyAdminController';
 import { useEffect, useState } from 'react';
 import { Alert } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';

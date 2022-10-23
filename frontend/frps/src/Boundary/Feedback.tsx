@@ -17,7 +17,10 @@ import { useParams, Link } from 'react-router-dom';
 
 
 
-
+/**
+ * This method is called when user lands on the feedback page.
+ * @returns {JSX.Element} The feedback page
+ */
 const Feedback = () => {
 
     const [openSnack, setOpenSnack] = useState(false);

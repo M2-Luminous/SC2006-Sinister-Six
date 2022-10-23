@@ -1,5 +1,5 @@
 import './App.css';
-import Home from './Home';
+import Home from './Boundary/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; //npm install react-router-dom@5
 import HomeTest from './HomeTest';
 

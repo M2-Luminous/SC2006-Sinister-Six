@@ -8,13 +8,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 
-import HeroCard from './Boundary/UIElements/HeroCard';
-import HouseCards from './Boundary/UIElements/HouseCards';
-import { getFlats, getMoreFlats } from './Control/DatabaseController';
-import Flat from "./Entity/Flat";
+import HeroCard from './UIElements/HeroCard';
+import HouseCards from './UIElements/HouseCards';
+import { getFlats, getMoreFlats } from '../Control/DatabaseController';
+import Flat from "../Entity/Flat";
 
 
-
+/**
+ * This function is called when user lands on the home page.
+ * @returns {JSX.Element} The home page.
+ */
 const Home = () => {
     // const [flats, setFlats] = useState(null);
     // store last document

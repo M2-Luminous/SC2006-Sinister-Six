@@ -182,7 +182,10 @@ export const FilterResultsToolbar = ({ resultLength }) => {
     );
 }
 
-
+/**
+ * This function is called when the user lands on the Filter page
+ * @returns {JSX.Element} The Filter page
+ */
 const Filter = () => {
 
     const [filter, setFilter] = useState({

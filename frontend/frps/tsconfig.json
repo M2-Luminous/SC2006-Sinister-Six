@@ -19,6 +19,13 @@
         "noEmit": true,
         "jsx": "preserve"
     },
+    "typedocOptions": {
+        "entryPoints": [
+            "src/"
+        ],
+        "entryPointStrategy": "expand",
+        "out": "docs",
+    },
     "include": [
         "src"
     ]

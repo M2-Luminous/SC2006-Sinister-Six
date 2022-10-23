@@ -26,7 +26,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
+/**
+ * This function gets flats from the database, with parameters to sort and limit the number of flats.
+ * @param {string} sortBy The field to sort by - either 'price' or 'lease commence'
+ * @param {number} viewNo The view number to start from - used for pagination
+ * @returns an object containing viewNo of flats, sorted by the given parameters
+ */
 export const getFlats = async (sortBy, viewNo) => {
     let ref = collection(db, "data");
     let q = query(ref, orderBy("resale_price"), limit(viewNo));
@@ -60,7 +65,13 @@ export const getFlats = async (sortBy, viewNo) => {
     return await getDocs(q);
 }
 
-
+/**
+ * This function is for pagination, it gets the next set of flats from the database
+ * @param {string} sortBy The field to sort by - either 'price' or 'lease commence'
+ * @param {number} viewNo The view number to start from - used for pagination 
+ * @param {object} lastDoc The last document in the previous set of flats
+ * @returns an object containing viewNo of flats, sorted by the given parameters
+ */
 export const getMoreFlats = async (sortBy, viewNo, lastDoc) => {
     let ref = collection(db, "data");
     let q = query(ref, orderBy("resale_price"), limit(viewNo));
@@ -94,6 +105,11 @@ export const getMoreFlats = async (sortBy, viewNo, lastDoc) => {
     return await getDocs(q);
 }
 
+/**
+ * This function gets one flat from the database
+ * @param {*} flatID The ID of the flat to get
+ * @returns an object containing the flat
+ */
 export const getOneFlat = async (flatID) => {
     let ref = doc(db, "data", flatID);
     return await getDoc(ref);
@@ -101,6 +117,12 @@ export const getOneFlat = async (flatID) => {
 
 // Filter handlers
 
+/**
+ * This function gets flats from the database based on the given filters
+ * @param {string} townName The name of the town to filter by
+ * @param {string} noOfRooms The number of rooms to filter by
+ * @returns an object containing the flats where all the filters are satisfied
+ */
 export const getFilteredFlats = async (townName, noOfRooms) => {
     console.log("calledFilteredFlats");
     const q = query(
@@ -114,16 +136,18 @@ export const getFilteredFlats = async (townName, noOfRooms) => {
     return await getDocs(q);
 }
 
-
-// await Promise.all([getDocs(q), getDocs(q1)]).then((values) => {
-//     allData = values;
-//     //print allData
-
-// });
-
-
 // Graph handlers
 
+/**
+ * This function gets the average resale price of flats in the given town
+ * @param {string} townName The name of the town to get the average resale price of
+ * @param {string} streetName The name of the street to get the average resale price of
+ * @param {number} leaseCommence Date The lease commence date to get the average resale price of
+ * @param {string} flatType The flat type to get the average resale price of
+ * @param {string} flatModel The flat model to get the average resale price of
+ * @param {number} floorArea The floor area to get the average resale price of
+ * @returns an object containing the average resale price of flats in the given town
+ */
 export const getGraphFlat = async (townName, streetName, leaseCommence, flatType, flatModel, floorArea) => {
     let ref = collection(db, "data");
     let q = query(
@@ -142,22 +166,41 @@ export const getGraphFlat = async (townName, streetName, leaseCommence, flatType
 
 
 // Feedback handlers
-
+/**
+ * This function adds a feedback to the database
+ * @param {object} docData The data of the feedback to add
+ * @returns a promise containing the result of the add operation
+ */
 export const writeFeedback = async (docData) => {
     return await addDoc(collection(db, "feedback"), docData);
 }
 
+
+/**
+ * This function verifies the user's login credentials
+ * @param {string} email The email of the user
+ * @returns a promise containing the result of the login operation
+ */
 export const confirmAdminCreds = async (email) => {
     let ref = doc(db, "creds", email);
     return await getDoc(ref);
 }
 
+/**
+ * This function gets all the feedback from the database
+ * @returns an object containing all the feedback
+ */
 export const getFeedbacks = async () => {
     let ref = collection(db, "feedback");
     let q = query(ref, orderBy("createdAt", "desc"));
     return await getDocs(q);
 }
 
+/**
+ * This function deletes a feedback from the database
+ * @param {string} id The ID of the feedback to delete
+ * @returns a promise containing the result of the delete operation
+ */
 export const delFeedback = async (id) => {
     let ref = doc(db, "feedback", id);
     console.log("deleting feedback: " + id);
