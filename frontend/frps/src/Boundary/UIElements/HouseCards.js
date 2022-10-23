@@ -2,12 +2,21 @@ import { Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from "
 import Portal from '../../images/hero.jpg';
 import { Link } from 'react-router-dom';
 
+import images from '../../Control/ImageController';
+
+//image randomizer based on last char of flat ID
+const imageRNG = (flatID) => {
+    const lastChar = flatID.charAt(flatID.length - 1);
+    const lastCharInt = lastChar.charCodeAt(0) % 20;
+    return images[lastCharInt];
+
+}
 
 const HouseCards = ({ flats }) => {
     return (
-
         flats.map((flat) => (
-            <div>
+            imageRNG(flat.flatID),
+            < div >
                 <Card sx={{
                     mt: '30px',
                     mb: '30px',
@@ -29,7 +38,7 @@ const HouseCards = ({ flats }) => {
                                 <CardMedia
                                     component="img"
                                     height="200"
-                                    image={Portal}
+                                    image={imageRNG(flat.flatID)}
                                     sx={{
                                         objectFit: "contain",
                                         mb: '15px',
@@ -141,13 +150,6 @@ const HouseCards = ({ flats }) => {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-
-
-
-                                    {/* <Typography variant="body2" color="text.secondary">
-                                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                across all continents except Antarctica
-                            </Typography> */}
                                 </CardContent>
 
 

@@ -10,10 +10,17 @@ import Flat from '../Entity/Flat';
 import React from 'react';
 import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
 import { Box } from '@mui/system';
+import images from '../Control/ImageController';
 
 
 var center = { lat: 1.3, lng: 106 };
 
+const imageRNG = (flatID) => {
+    const lastChar = flatID.charAt(flatID.length - 1);
+    const lastCharInt = lastChar.charCodeAt(0) % 20;
+    return images[lastCharInt];
+
+}
 
 export const MapToolbar = () => {
     return (
@@ -189,7 +196,7 @@ const FlatDetails = () => {
                                 <CardMedia
                                     component="img"
                                     height="200"
-                                    image={Portal}
+                                    image={imageRNG(flat.flatID)}
                                     sx={{
                                         objectFit: "contain",
                                         mb: '15px',
