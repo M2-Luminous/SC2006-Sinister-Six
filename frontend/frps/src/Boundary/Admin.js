@@ -1,16 +1,14 @@
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { verifyAdmin } from '../Control/VerifyAdminController';
 import { useEffect, useState } from 'react';
-import { Alert } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
+import { useHistory } from 'react-router-dom';
+import { Box, Button, Container, TextField, Typography, Alert, Card } from '@mui/material';
 
-import Card from '@mui/material/Card';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 // Feedbacks imports
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -18,8 +16,9 @@ import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 
 import FeedbackClass from '../Entity/FeedbackClass';
-
+import { verifyAdmin } from '../Control/VerifyAdminController';
 import { getFeedbacks, delFeedback } from '../Control/DatabaseController';
+
 
 const FeedbacksToolbar = () => {
     return (
@@ -38,45 +37,14 @@ const FeedbacksToolbar = () => {
             >
                 Manage Feedbacks
             </Typography>
-            {/* <Box sx={{ m: 1 }}>
-                <Button
-                    startIcon={(<UploadIcon fontSize="small" />)}
-                    sx={{ mr: 1 }}
-                >
-                    Import
-                </Button>
-                <Button
-                    startIcon={(<DownloadIcon fontSize="small" />)}
-                    sx={{ mr: 1 }}
-                >
-                    Export
-                </Button>
-                <Button
-                    color="primary"
-                    variant="contained"
-                >
-                    Add Customers
-                </Button>
-            </Box> */}
         </Box>
     );
 }
 
 const Feedbacks = () => {
 
-    const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-    const [limit, setLimit] = useState(10);
-    const [page, setPage] = useState(0);
     const [listOfFeedbacks, setListOfFeedbacks] = useState([]);
-    const [loading, setLoading] = useState(true);
 
-    const handleLimitChange = (event) => {
-        setLimit(event.target.value);
-    };
-
-    const handlePageChange = (event, newPage) => {
-        setPage(newPage);
-    };
 
     useEffect(() => {
         (async () => {
@@ -95,7 +63,6 @@ const Feedbacks = () => {
                     )
                 );
                 console.log("loaded");
-                setLoading(false);
             } catch (err) {
                 console.log("ERROR" + err);
             }
@@ -229,6 +196,7 @@ const Feedbacks = () => {
 
 const LoginPanel = ({ isVerfied, setIsVerified }) => {
 
+    const [isWrongCreds, setIsWrongCreds] = useState(false);
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -259,7 +227,8 @@ const LoginPanel = ({ isVerfied, setIsVerified }) => {
 
     });
 
-    const [isWrongCreds, setIsWrongCreds] = useState(false);
+    let history = useHistory();
+
 
     return (
         <Container>
@@ -280,8 +249,9 @@ const LoginPanel = ({ isVerfied, setIsVerified }) => {
                 <Container maxWidth="sm">
                     <Button
                         startIcon={<ArrowBackIcon fontSize="small" />}
-                        component={Link}
-                        to={"/home"}
+                        onClick={() => {
+                            history.goBack()
+                        }}
                     >
                         Back
                     </Button>
@@ -415,47 +385,6 @@ const LoginPanel = ({ isVerfied, setIsVerified }) => {
         </Container >
     );
 };
-
-const FlatsToolbar = () => {
-    return (
-        <Box
-            sx={{
-                alignItems: 'center',
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                m: -1
-            }}
-        >
-            <Typography
-                sx={{ m: 1 }}
-                variant="h4"
-            >
-                Manage Flats
-            </Typography>
-            {/* <Box sx={{ m: 1 }}>
-                <Button
-                    startIcon={(<UploadIcon fontSize="small" />)}
-                    sx={{ mr: 1 }}
-                >
-                    Import
-                </Button>
-                <Button
-                    startIcon={(<DownloadIcon fontSize="small" />)}
-                    sx={{ mr: 1 }}
-                >
-                    Export
-                </Button>
-                <Button
-                    color="primary"
-                    variant="contained"
-                >
-                    Add Customers
-                </Button>
-            </Box> */}
-        </Box>
-    );
-}
 
 
 

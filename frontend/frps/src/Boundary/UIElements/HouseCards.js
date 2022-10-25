@@ -1,5 +1,4 @@
 import { Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from "@mui/material"
-import Portal from '../../images/hero.jpg';
 import { Link } from 'react-router-dom';
 
 import images from '../../Control/ImageController';
@@ -15,7 +14,7 @@ const imageRNG = (flatID) => {
 const HouseCards = ({ flats }) => {
     return (
         flats.map((flat) => (
-            imageRNG(flat.flatID),
+
             < div >
                 <Card sx={{
                     mt: '30px',
@@ -139,12 +138,12 @@ const HouseCards = ({ flats }) => {
                                                         color="text.secondary"
                                                         component="div"
                                                     >
-                                                        AREA
+                                                        FLOOR AREA
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={7} marginBottom={2}>
                                                     <Typography variant="body1" component="div">
-                                                        {flat.getFloorAreaSqm()}
+                                                        {flat.getFloorAreaSqm()} sqm
                                                     </Typography>
                                                 </Grid>
                                             </Grid>

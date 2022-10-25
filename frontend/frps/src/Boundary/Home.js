@@ -132,6 +132,18 @@ const Home = () => {
                         // paddingLeft: "1rem",
                         // paddingRight: "1rem",
                     }}>
+                    <Box width={{}}>
+                        <FormControl sx={{ width: '7rem' }}>
+                            <InputLabel id="no-of-items-label">No Of Items</InputLabel>
+                            <Select labelId="no-of-items-label" id="no-of-items" value={noOfItems} label="No Of Items" onChange={handleNoItemsChange}>
+                                <MenuItem value={10}>10</MenuItem>
+                                <MenuItem value={20}>20</MenuItem>
+                                <MenuItem value={30}>30</MenuItem>
+                                <MenuItem value={40}>40</MenuItem>
+                                <MenuItem value={50}>50</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
                     <Box width={{ xs: "100%", md: "30%" }}>
                         <FormControl>
                             <InputLabel id="sort-by-select-label">Sort by</InputLabel>
@@ -144,18 +156,6 @@ const Home = () => {
                         </FormControl>
                     </Box>
 
-                    <Box width={{ xs: "100%", md: "30%" }}>
-                        <FormControl sx={{ width: '7rem' }}>
-                            <InputLabel id="no-of-items-label">No Of Items</InputLabel>
-                            <Select labelId="no-of-items-label" id="no-of-items" value={noOfItems} label="No Of Items" onChange={handleNoItemsChange}>
-                                <MenuItem value={10}>10</MenuItem>
-                                <MenuItem value={20}>20</MenuItem>
-                                <MenuItem value={30}>30</MenuItem>
-                                <MenuItem value={40}>40</MenuItem>
-                                <MenuItem value={50}>50</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
                 </Stack>
             </Box>
 

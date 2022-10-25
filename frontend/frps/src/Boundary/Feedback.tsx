@@ -13,7 +13,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { writeFeedback } from '../Control/DatabaseController';
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
@@ -113,7 +113,7 @@ const Feedback = () => {
                                 gutterBottom
                                 variant="body2"
                             >
-                                Let us know how we can improve.
+                                Let us know how we can improve
                             </Typography>
                         </Box>
                         <TextField

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -10,12 +11,12 @@ import { FormControl, LinearProgress, TextField } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem';
 import { Container, Box } from '@mui/system';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import Flat from '../Entity/Flat';
 import { getFilteredFlats } from '../Control/DatabaseController';
 import HouseCards from './UIElements/HouseCards';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CircularProgress from '@mui/material/CircularProgress';
+
 
 
 const towns = [
@@ -104,39 +105,25 @@ export const FilterToolbar = () => {
     return (
         <Box
             sx={{
-                alignItems: 'center',
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                m: -1
+                // alignItems: 'center',
+                // display: 'flex',
+                // justifyContent: 'space-between',
+                // flexWrap: 'wrap',
+                my: 3
             }}
         >
             <Typography
-                sx={{ m: 1 }}
                 variant="h4"
             >
                 Filter
             </Typography>
-            {/* <Box sx={{ m: 1 }}>
-                <Button
-                    startIcon={(<UploadIcon fontSize="small" />)}
-                    sx={{ mr: 1 }}
-                >
-                    Import
-                </Button>
-                <Button
-                    startIcon={(<DownloadIcon fontSize="small" />)}
-                    sx={{ mr: 1 }}
-                >
-                    Export
-                </Button>
-                <Button
-                    color="primary"
-                    variant="contained"
-                >
-                    Add Customers
-                </Button>
-            </Box> */}
+            <Typography
+                color="textSecondary"
+                gutterBottom
+                variant="body2"
+            >
+                Filter your search
+            </Typography>
         </Box>
     );
 }
@@ -158,26 +145,6 @@ export const FilterResultsToolbar = ({ resultLength }) => {
             >
                 Results {resultLength}
             </Typography>
-            {/* <Box sx={{ m: 1 }}>
-                <Button
-                    startIcon={(<UploadIcon fontSize="small" />)}
-                    sx={{ mr: 1 }}  
-                >
-                    Import
-                </Button>
-                <Button
-                    startIcon={(<DownloadIcon fontSize="small" />)}
-                    sx={{ mr: 1 }}
-                >
-                    Export
-                </Button>
-                <Button
-                    color="primary"
-                    variant="contained"
-                >
-                    Add Customers
-                </Button>
-            </Box> */}
         </Box>
     );
 }
@@ -198,30 +165,29 @@ const Filter = () => {
     });
 
     const [flatList, setFlatList] = useState([]);
-    const [justEntered, setJustEntered] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [resultLength, setResultLength] = useState(0);
 
-    const test = () => {
-        console.log("STRINGYFYING");
-        console.log(JSON.stringify(filter));
-        // console.log(filter);
+    // const test = () => {
+    //     console.log("STRINGYFYING");
+    //     console.log(JSON.stringify(filter));
+    //     // console.log(filter);
 
-        // fetch from server
-        const stringFilter = JSON.stringify(filter);
-        const response = fetch('https://sinistersix-a7294.web.app:3001/filterReq', {
-            method: 'POST',
-            mode: 'cors',
-            headers: { "Content-type": "application/json;charset=UTF-8" },
-            body: stringFilter
-        })
-            .then(response => response.json())
-            .then(data => {
-                // let price = data;
-                console.log(data);
-            })
-            .catch(err => console.log(err));
-    }
+    //     // fetch from server
+    //     const stringFilter = JSON.stringify(filter);
+    //     const response = fetch('https://sinistersix-a7294.web.app:3001/filterReq', {
+    //         method: 'POST',
+    //         mode: 'cors',
+    //         headers: { "Content-type": "application/json;charset=UTF-8" },
+    //         body: stringFilter
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // let price = data;
+    //             console.log(data);
+    //         })
+    //         .catch(err => console.log(err));
+    // }
 
     const handleChange = (event) => {
         setFilter({ ...filter, [event.target.name]: event.target.value });
@@ -259,7 +225,7 @@ const Filter = () => {
                 );
 
                 setIsLoading(false);
-                // setResultLength(flatList.length());
+                setResultLength(flatList.length());
                 console.log(flatList);
 
             } catch (err) {
@@ -270,19 +236,22 @@ const Filter = () => {
 
     }
 
+    let history = useHistory();
+
     return (
 
         <Box
             component="main"
             sx={{
                 flexGrow: 1,
-                py: 3,
+                // py: 3,
             }}
         >
             <Container>
                 <Button
                     startIcon={<ArrowBackIcon fontSize="small" />}
                     onClick={() => {
+                        history.goBack()
                     }}
                 >
                     Back
@@ -313,13 +282,13 @@ const Filter = () => {
                         </FormControl>
 
                         <FormControl sx={{ width: "100%", mb: 3 }}>
-                            <InputLabel id="noOfRooms-select-label">Number of Rooms</InputLabel>
+                            <InputLabel id="noOfRooms-select-label">Flat Type</InputLabel>
                             <Select
                                 labelId="noOfRooms-select-label"
                                 id="noOfRooms-select"
                                 name="noOfRooms"
                                 value={filter.noOfRooms}
-                                label="Number of Rooms"
+                                label="Flat Type"
                                 onChange={handleChange}
                             >
 
@@ -380,7 +349,7 @@ const Filter = () => {
                         </FormControl>
 
                         <FormControl sx={{ width: "100%", mb: 3 }}>
-                            <InputLabel id="leaseStartDate-select-label">Least Start Date</InputLabel>
+                            <InputLabel id="leaseStartDate-select-label">Lease Start Date</InputLabel>
                             <Select
                                 labelId="leaseStartDate-select-label"
                                 id="leaseStartDate-select"

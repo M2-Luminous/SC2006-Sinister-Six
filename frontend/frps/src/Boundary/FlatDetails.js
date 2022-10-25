@@ -1,16 +1,16 @@
+import React from 'react';
 import { Container, Grid, Card, Typography, CardMedia, CardContent, Button } from '@mui/material';
-import Portal from '../images/hero.jpg';
-import { useParams, Link } from 'react-router-dom';
+import { Box } from '@mui/system';
+import { useParams, useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getOneFlat } from '../Control/DatabaseController';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import Flat from '../Entity/Flat';
-import React from 'react';
 import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
-import { Box } from '@mui/system';
+
+import Flat from '../Entity/Flat';
 import images from '../Control/ImageController';
+import { getOneFlat } from '../Control/DatabaseController';
 
 
 var center = { lat: 1.3, lng: 106 };
@@ -49,10 +49,11 @@ const FlatDetails = () => {
 
     // might be able to decouple into another js file, maybe IndividualFlatController
     const { flatID } = useParams();
-
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [flat, setFlat] = useState([]);
+
+    let history = useHistory();
+
 
     useEffect(() => {
         console.log("fetching oneFlat..");
@@ -62,7 +63,6 @@ const FlatDetails = () => {
                 let results;
                 if (oneFlat.data() == null) {
                     setLoading(false);
-                    setError("No such flat exists");
                 } else {
                     setLoading(false);
                     results = new Flat(
@@ -87,13 +87,9 @@ const FlatDetails = () => {
             }
 
         })();
-    }, []);
+    });
 
-    // const handleBack = () => {
-    //     window.history.back();
-    // }
-
-    const { isLoaded } = useLoadScript({
+    useLoadScript({
         // googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
         googleMapsApiKey: "AIzaSyBVeTU6-9MHWZ92vZJ2CFRgYDJNsuLzobw"
     })
@@ -159,7 +155,7 @@ const FlatDetails = () => {
 
     function coor(address) {
         for (var j = 0; j < 26; j++) {
-            if (address == towns[j]) {
+            if (address === towns[j]) {
                 const { lat, long } = coordinates[j];
                 const center = { lat: lat, lng: long };
                 console.log(center)
@@ -168,10 +164,13 @@ const FlatDetails = () => {
         }
     }
 
+
     return (
         <>
             <Container sx={{ my: '30px' }}>
-                <Button variant="contained" color="secondary" startIcon={<ArrowBackIcon />} component={Link} to={'/home'} >
+                <Button startIcon={<ArrowBackIcon fontSize="small" />} onClick={() => {
+                    history.goBack()
+                }} >
                     Back
                 </Button>
 
@@ -199,7 +198,7 @@ const FlatDetails = () => {
                                     image={imageRNG(flat.flatID)}
                                     sx={{
                                         objectFit: "contain",
-                                        mb: '15px',
+                                        mt: '30px',
                                         backgroundPosition: 'center',
                                         textAlign: 'center',
                                         justifyContent: 'center',
@@ -266,6 +265,21 @@ const FlatDetails = () => {
                                                         {flat.getLeaseCommenceDate()}
                                                     </Typography>
                                                 </Grid>
+
+                                                <Grid item xs={4} marginBottom={2} sx={{ border: 0 }}>
+                                                    <Typography
+                                                        variant="body1"
+                                                        color="text.secondary"
+                                                        component="div"
+                                                    >
+                                                        FLOOR
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={8} marginBottom={2} sx={{ border: 0 }}>
+                                                    <Typography variant="body1" component="div">
+                                                        {flat.getStoreyRange()}
+                                                    </Typography>
+                                                </Grid>
                                             </Grid>
                                         </Grid>
 
@@ -300,18 +314,33 @@ const FlatDetails = () => {
                                                         {flat.getFlatModel()}
                                                     </Typography>
                                                 </Grid>
+
                                                 <Grid item xs={5} marginBottom={2} sx={{ border: 0 }}>
                                                     <Typography
                                                         variant="body1"
                                                         color="text.secondary"
                                                         component="div"
                                                     >
-                                                        AREA
+                                                        FLOOR AREA
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={7} marginBottom={2} sx={{ border: 0 }}>
                                                     <Typography variant="body1" component="div">
-                                                        {flat.getFloorAreaSqm()}
+                                                        {flat.getFloorAreaSqm()} sqm
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={5} marginBottom={2} sx={{ border: 0 }}>
+                                                    <Typography
+                                                        variant="body1"
+                                                        color="text.secondary"
+                                                        component="div"
+                                                    >
+                                                        BLOCK
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={7} marginBottom={2} sx={{ border: 0 }}>
+                                                    <Typography variant="body1" component="div">
+                                                        {flat.getBlock()}
                                                     </Typography>
                                                 </Grid>
                                             </Grid>
