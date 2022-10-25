@@ -39,8 +39,8 @@ const GraphFunction = (Filters) => {
       leaseStartDate: leaseStartDate,
       floorArea: floorArea
       }
-    
-    testPrice.push(graphFlats['data'].resale_price(variables));
+    console.log(graphFlats[x].id);
+    //testPrice.push(graphFlats['data'].resale_price(variables));
 
     let stringVariables = JSON.stringify(variables);    //this is to get predicted resalePrice from backend
     fetch('https://sc2006-backend-b3go.onrender.com/filterReq', {
