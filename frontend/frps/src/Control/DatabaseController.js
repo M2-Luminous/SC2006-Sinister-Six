@@ -152,13 +152,12 @@ export const getGraphFlat = async (townName, streetName, leaseCommence, flatType
     let ref = collection(db, "data");
     let q = query(
         ref,
-        where("town" === townName),
-        where("street_name" === streetName),
-        where("lease_commence" === leaseCommence),
-        where("flat_type" === flatType),
-        where("flat_model" === flatModel),
-        where("floor_area" === floorArea),
-        limit(5));
+        where("town" == townName),
+        where("lease_commence" == leaseCommence),
+        where("flat_type" == flatType),
+        where("flat_model" == flatModel),
+        where("floor_area" == floorArea),
+        limit(1));
 
     return await getDocs(q);
 }
