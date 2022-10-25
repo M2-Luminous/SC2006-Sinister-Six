@@ -148,15 +148,15 @@ export const getFilteredFlats = async (townName, noOfRooms) => {
  * @param {number} floorArea The floor area to get the average resale price of
  * @returns an object containing the average resale price of flats in the given town
  */
-export const getGraphFlat = async (townName, streetName, leaseCommence, flatType, flatModel, floorArea) => {
+export const getGraphFlat = async (townName, leaseCommence, flatType, flatModel, floorArea) => {
     let ref = collection(db, "data");
     let q = query(
-        ref,
-        where("town" == townName),
-        where("lease_commence" == leaseCommence),
-        where("flat_type" == flatType),
-        where("flat_model" == flatModel),
-        where("floor_area" == floorArea),
+        collection(db, "data"),
+        where("town", "==" ,townName),
+        where("lease_commence_date", "==" ,leaseCommence),
+        where("flat_type", "==" ,flatType),
+        where("flat_model", "==" ,flatModel),
+        where("floor_area_sqm", "==" ,floorArea),
         limit(1));
 
     return await getDocs(q);
