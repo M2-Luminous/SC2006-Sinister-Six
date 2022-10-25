@@ -9,9 +9,7 @@ const GraphFunction = (Filters) => {
   //const townName = Filters['townName'];
   const townName = 'ANG MO KIO';
   //const noOfRooms = Filters['noOfRooms'];
-  const noOfRooms = '5 ROOM';
-  //const floor = Filters['floor'];
-  const floor = 6;
+  const flatType = '5 ROOM';
   //const floorArea = Filters['floorArea'];
   const floorArea = 100;
   //const flatModel = Filters['flatModel'];
@@ -26,14 +24,14 @@ const GraphFunction = (Filters) => {
   let predictedData = [];      //array of predicted data
   let testPrice = []           //array of 5 resale prices
   
+  let variables;
   for(let x = 0; x < 5; x++) {
-    graphFlats.push(getGraphFlat(townName, noOfRooms, floor, floorArea, flatModel, (leaseStartDate += x))); //historic data
-    let variables = {
+    graphFlats.push(getGraphFlat(townName, (leaseStartDate += x), flatType, flatModel, floorArea)); //historic data
+    variables = {
       townName: townName,
-      noOfRooms: noOfRooms,
+      flatType: flatType,
       flatModel: flatModel,
       leaseStartDate: leaseStartDate,
-      floor: floor,
       floorArea: floorArea
       }
     
@@ -105,7 +103,7 @@ const handleChange = (event, newValue) => {
   return ( 
     <div>
       <Typography id="range-slider" gutterBottom>
-        Lease Start Date
+        Resale Price Prediction
       </Typography>
       
       <ResponsiveContainer width="100%" height={400}>
