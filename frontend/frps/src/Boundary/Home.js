@@ -24,7 +24,6 @@ const Home = () => {
     const [lastDoc, setLastDoc] = useState(null);
     const [loading, setLoading] = useState(true);
     const [loadingMore, setLoadingMore] = useState(false);
-    const [error, setError] = useState(null);
     const [flatList, setList] = useState([]);
     const [sortBy, setSortBy] = useState(1);
     const [noOfItems, setnoOfItems] = useState(10);

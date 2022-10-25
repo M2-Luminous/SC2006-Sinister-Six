@@ -20,7 +20,7 @@ import apart19 from '../images/apart_19.jpg';
 import apart20 from '../images/apart_20.jpg';
 import apart21 from '../images/apart_21.jpg';
 
-export default [
+const images = [
     apart1,
     apart2,
     apart3,
@@ -43,3 +43,5 @@ export default [
     apart20,
     apart21,
 ]
+
+export default images;
