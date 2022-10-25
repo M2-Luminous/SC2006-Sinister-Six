@@ -4,6 +4,7 @@ import React, {PureComponent} from 'react';
 //import {Filter} from './Boundary/Filter';
 import {getGraphFlat} from './Control/DatabaseController.js';
 import {Container, Typography, Slider} from '@mui/material';
+import { useEffect, useState } from 'react';
 
 const GraphFunction = (Filters) => {
   //const townName = Filters['townName'];
@@ -19,14 +20,18 @@ const GraphFunction = (Filters) => {
 
   //let graphFlats = new Array();         //array of flats to be graphed
   //let predictedData = new Array();      //array of predicted data
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   let graphFlats = [];         //array of flats to be graphed
   let predictedData = [];      //array of predicted data
   let testPrice = []           //array of 5 resale prices
   
   let variables;
+  useEffect(() => {
+    (async () => {
+      try {
   for(let x = 0; x < 5; x++) {
-    graphFlats.push(getGraphFlat(townName, (leaseStartDate += x), flatType, flatModel, floorArea)); //historic data
+    graphFlats.push(await getGraphFlat(townName, (leaseStartDate += x), flatType, flatModel, floorArea)); //historic data
     variables = {
       townName: townName,
       flatType: flatType,
@@ -35,7 +40,7 @@ const GraphFunction = (Filters) => {
       floorArea: floorArea
       }
     
-    //testPrice.push(graphFlats['data'].resale_price(variables));
+    testPrice.push(graphFlats['data'].resale_price(variables));
 
     let stringVariables = JSON.stringify(variables);    //this is to get predicted resalePrice from backend
     fetch('https://sc2006-backend-b3go.onrender.com/filterReq', {
@@ -48,7 +53,14 @@ const GraphFunction = (Filters) => {
     .then(data => {
       predictedData.push(data['data']);                 //predicted data will be storing in this array
     });
+    
   }
+  } catch (err) {
+    console.log("ERROR:" + err);
+  }
+  setLoading(false);
+  })();
+}, []);
 
   const dataa = [
     {
@@ -101,7 +113,9 @@ const handleChange = (event, newValue) => {
 };
 
   return ( 
-    <div>
+    <>
+    {!loading &&
+    <Container>
       <Typography id="range-slider" gutterBottom>
         Resale Price Prediction
       </Typography>
@@ -127,8 +141,10 @@ const handleChange = (event, newValue) => {
           <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
         </LineChart>
       </ResponsiveContainer>
-    </div>
+    </Container> }
+    </>
  );
-}
+  }
+
  
 export default GraphFunction;
