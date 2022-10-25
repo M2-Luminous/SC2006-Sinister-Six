@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Select from '@mui/material/Select';
-import { FormControl, LinearProgress, TextField } from '@mui/material';
+import { CircularProgress, FormControl, LinearProgress, TextField } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem';
 import { Container, Box, Stack } from '@mui/system';
@@ -128,7 +128,7 @@ export const FilterToolbar = () => {
     );
 }
 
-export const FilterResultsToolbar = ({ resultLength }) => {
+export const FilterResultsToolbar = ({ resultLength, isLoading }) => {
     return (
         <>
             <Box
@@ -144,7 +144,7 @@ export const FilterResultsToolbar = ({ resultLength }) => {
                     sx={{ m: 1 }}
                     variant="h4"
                 >
-                    Results ({resultLength})
+                    Results {isLoading ? <CircularProgress color="secondary" size={20} /> : (resultLength)}
                 </Typography>
             </Box>
 
@@ -231,23 +231,17 @@ const Filter = () => {
                         )
                     ))
                 );
-
-                // console.log(flatList);
+                setResultLength(flats.docs.length);
 
             } catch (err) {
                 console.log("ERROR" + err);
             } finally {
-                // console.log("done");
                 setIsLoading(false);
             }
 
         })();
     }
 
-    useEffect(() => {
-        // console.log("useEffect");
-        setResultLength(flatList.length);
-    }, [flatList]);
 
     let history = useHistory();
 
@@ -406,7 +400,7 @@ const Filter = () => {
                             // paddingRight: "1rem",
                         }}>
 
-                        <FilterResultsToolbar resultLength={resultLength} />
+                        <FilterResultsToolbar resultLength={resultLength} isLoading={isLoading} />
 
 
                         <Stack direction="row" justifyContent={"flex-end"}>
