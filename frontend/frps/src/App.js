@@ -1,7 +1,6 @@
 import './App.css';
 import Home from './Boundary/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; //npm install react-router-dom@5
-import HomeTest from './HomeTest';
 
 import Filter from './Boundary/Filter';
 import FlatDetails from './Boundary/FlatDetails';
@@ -9,7 +8,7 @@ import Navbar from './Boundary/UIElements/Navbar';
 import Footer from './Boundary/UIElements/Footer';
 import Feedback from './Boundary/Feedback';
 import Admin from './Boundary/Admin';
-import ImageController from './Control/ImageController';
+import Graph from './Graph';
 
 
 function App() {
@@ -37,8 +36,8 @@ function App() {
             <Route exact path="/admin">
               <Admin />
             </Route>
-            <Route exact path="/tsss">
-              <ImageController />
+            <Route exact path="/gtest">
+              <Graph />
             </Route>
           </Switch>
         </div>
