@@ -13,7 +13,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { writeFeedback } from '../Control/DatabaseController';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -81,6 +81,8 @@ const Feedback = () => {
         },
     });
 
+    let history = useHistory();
+
     return (
         <Container>
             <Box
@@ -95,8 +97,9 @@ const Feedback = () => {
                 <Container maxWidth="sm">
                     <Button
                         startIcon={<ArrowBackIcon fontSize="small" />}
-                        component={Link}
-                        to={"/home"}
+                        onClick={() => {
+                            history.goBack()
+                        }}
                     >
                         Back
                     </Button>
