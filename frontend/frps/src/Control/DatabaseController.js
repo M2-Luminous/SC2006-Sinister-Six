@@ -121,13 +121,40 @@ export const getOneFlat = async (flatID) => {
  * This function gets flats from the database based on the given filters
  * @param {string} townName The name of the town to filter by
  * @param {string} noOfRooms The number of rooms to filter by
+ * @param {string} sortBy The field to sort by - either 'price' or 'lease commence'
  * @returns an object containing the flats where all the filters are satisfied
  */
-export const getFilteredFlats = async (townName, noOfRooms) => {
-    console.log("calledFilteredFlats");
+export const getFilteredFlats = async (townName, noOfRooms, sortBy) => {
+    let orderKey;
+    let orderDirection;
+
+    switch (sortBy) {
+        case 1:
+            orderKey = "resale_price";
+            orderDirection = "asc";
+            break;
+        case 2:
+            orderKey = "resale_price";
+            orderDirection = "desc";
+            break;
+        case 3:
+            orderKey = "lease_commence_date";
+            orderDirection = "desc";
+            break;
+        case 4:
+            orderKey = "lease_commence_date";
+            orderDirection = "asc";
+            break;
+        default:
+            orderKey = "resale_price";
+            orderDirection = "asc";
+            break;
+
+    }
+
     const q = query(
         collection(db, "data"),
-        orderBy("resale_price"),
+        orderBy(orderKey, orderDirection),
         where("town", "==", townName),
         where("flat_type", "==", noOfRooms),
         limit(50)

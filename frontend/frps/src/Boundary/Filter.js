@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
@@ -10,7 +10,7 @@ import Select from '@mui/material/Select';
 import { FormControl, LinearProgress, TextField } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem';
-import { Container, Box } from '@mui/system';
+import { Container, Box, Stack } from '@mui/system';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import Flat from '../Entity/Flat';
@@ -130,22 +130,27 @@ export const FilterToolbar = () => {
 
 export const FilterResultsToolbar = ({ resultLength }) => {
     return (
-        <Box
-            sx={{
-                alignItems: 'center',
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                m: -1
-            }}
-        >
-            <Typography
-                sx={{ m: 1 }}
-                variant="h4"
+        <>
+            <Box
+                sx={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    m: -1
+                }}
             >
-                Results {resultLength}
-            </Typography>
-        </Box>
+                <Typography
+                    sx={{ m: 1 }}
+                    variant="h4"
+                >
+                    Results ({resultLength})
+                </Typography>
+            </Box>
+
+
+        </>
+
     );
 }
 
@@ -167,6 +172,7 @@ const Filter = () => {
     const [flatList, setFlatList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [resultLength, setResultLength] = useState(0);
+    const [sortBy, setSortBy] = useState(1);
 
     // const test = () => {
     //     console.log("STRINGYFYING");
@@ -189,21 +195,23 @@ const Filter = () => {
     //         .catch(err => console.log(err));
     // }
 
+    const handleSortByChange = (event) => {
+        setSortBy(event.target.value);
+    }
+
     const handleChange = (event) => {
         setFilter({ ...filter, [event.target.name]: event.target.value });
-        console.log("lol");
-        console.log(filter);
-        console.log("updatedValue:" + filter.townName);
     }
 
     const handleFilter = (event) => {
 
         setIsLoading(true);
-        setFlatList({});
+        setResultLength(0);
+        setFlatList([]);
         (async () => {
             try {
-                let flats = await getFilteredFlats(filter.townName, filter.noOfRooms);
-                setFlatList(
+                let flats = await getFilteredFlats(filter.townName, filter.noOfRooms, sortBy);
+                setFlatList((flatList) => (
                     flatList.concat(
                         flats.docs.map(
                             (doc) =>
@@ -221,25 +229,29 @@ const Filter = () => {
                                     doc.data().town
                                 )
                         )
-                    )
+                    ))
                 );
 
-                setIsLoading(false);
-                setResultLength(flatList.length());
-                console.log(flatList);
+                // console.log(flatList);
 
             } catch (err) {
                 console.log("ERROR" + err);
+            } finally {
+                // console.log("done");
+                setIsLoading(false);
             }
 
         })();
-
     }
+
+    useEffect(() => {
+        // console.log("useEffect");
+        setResultLength(flatList.length);
+    }, [flatList]);
 
     let history = useHistory();
 
     return (
-
         <Box
             component="main"
             sx={{
@@ -247,6 +259,11 @@ const Filter = () => {
                 // py: 3,
             }}
         >
+            <Button onClick={() => {
+                console.log("test");
+                console.log(flatList);
+
+            }}>Test</Button>
             <Container>
                 <Button
                     startIcon={<ArrowBackIcon fontSize="small" />}
@@ -369,14 +386,47 @@ const Filter = () => {
 
                     <CardContent sx={{ display: 'flex', justifyContent: 'flex-end' }}>
 
-                        <Button variant="contained" onClick={() => (
-                            handleFilter()
-                        )} color="secondary">Filter</Button>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={() => {
+                                setFlatList([]);
+                                handleFilter();
+                            }}
+                        >Filter</Button>
 
                     </CardContent>
                 </Card >
 
-                <FilterResultsToolbar resultLength={resultLength} />
+                <Box>
+                    <Stack
+                        direction={{ sm: "column", md: "row" }}
+                        spacing={1}
+                        sx={{
+                            // mr: 3,
+                            justifyContent: "space-between",
+                            // justifyContent: "flex-end",
+                            // py: 3,
+                            // paddingLeft: "1rem",
+                            // paddingRight: "1rem",
+                        }}>
+
+                        <FilterResultsToolbar resultLength={resultLength} />
+
+
+                        <Stack direction="row" justifyContent={"flex-end"}>
+                            <FormControl>
+                                <InputLabel id="sort-by-select-label">Sort by</InputLabel>
+                                <Select labelId="sort-by-select-label" id="sort-by-select" value={sortBy} label="Sort by" onChange={handleSortByChange}>
+                                    <MenuItem value={1}>Price (Low to High)</MenuItem>
+                                    <MenuItem value={2}>Price (High to Low)</MenuItem>
+                                    <MenuItem value={3}>Lease Date (Newest to Oldest)</MenuItem>
+                                    <MenuItem value={4}>Lease Date (Oldest to Newest)</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Stack>
+                    </Stack>
+                </Box>
 
                 <Box sx={{ pt: 3 }}>
                     {isLoading ? <LinearProgress /> : <HouseCards flats={flatList} />}
