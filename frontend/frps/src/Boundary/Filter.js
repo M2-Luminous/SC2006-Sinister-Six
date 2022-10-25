@@ -259,11 +259,6 @@ const Filter = () => {
                 // py: 3,
             }}
         >
-            <Button onClick={() => {
-                console.log("test");
-                console.log(flatList);
-
-            }}>Test</Button>
             <Container>
                 <Button
                     startIcon={<ArrowBackIcon fontSize="small" />}
