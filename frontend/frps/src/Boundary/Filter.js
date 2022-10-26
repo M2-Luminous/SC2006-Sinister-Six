@@ -210,7 +210,7 @@ const Filter = () => {
         setFlatList([]);
         (async () => {
             try {
-                let flats = await getFilteredFlats(filter.townName, filter.noOfRooms, sortBy);
+                let flats = await getFilteredFlats(filter.townName, filter.noOfRooms, filter.flatModel, filter.leaseStartDate, sortBy);
                 setFlatList((flatList) => (
                     flatList.concat(
                         flats.docs.map(

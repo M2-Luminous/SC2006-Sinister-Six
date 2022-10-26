@@ -124,7 +124,7 @@ export const getOneFlat = async (flatID) => {
  * @param {string} sortBy The field to sort by - either 'price' or 'lease commence'
  * @returns an object containing the flats where all the filters are satisfied
  */
-export const getFilteredFlats = async (townName, noOfRooms, sortBy) => {
+export const getFilteredFlats = async (townName, noOfRooms, flatModel, leaseStartDate, sortBy) => {
     let orderKey;
     let orderDirection;
 
@@ -157,6 +157,8 @@ export const getFilteredFlats = async (townName, noOfRooms, sortBy) => {
         orderBy(orderKey, orderDirection),
         where("town", "==", townName),
         where("flat_type", "==", noOfRooms),
+        // where("flat_model", "==", flatModel),
+        // where("lease_commence_date", "==", leaseStartDate),
         limit(50)
     );
 
