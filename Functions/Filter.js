@@ -81,9 +81,9 @@ const SetFilter = (data) => {
 
         }
     }
-    town = townData[0][data['townName'].toUpper()];
-    model = flatData[0][data['flatModel'].toUpper()];
-    roomNo = roomNoData[0][data['noOfRooms'].toUpper()];
+    town = townData[0][data['townName'].toUpperCase()];
+    model = flatData[0][data['flatModel'].toUpperCase()];
+    roomNo = roomNoData[0][data['noOfRooms'].toUpperCase()];
     dateTime = new Date(data['leaseStartDate']);
     //leaseStartDate = Math.floor(dateTime.getTime()/1000); //UNIX TIME: DO NOT USE
     leaseStartDate = parseInt(data['leaseStartDate']);
