@@ -5,18 +5,21 @@ import React, {PureComponent} from 'react';
 import {getGraphFlat} from './Control/DatabaseController.js';
 import {Container, Typography, Slider} from '@mui/material';
 import { useEffect, useState } from 'react';
+import { date } from 'yup';
 
 const GraphFunction = (Filters) => {
   //const townName = Filters['townName'];
-  const townName = 'ANG MO KIO';
+  const townName = 'QUEENSTOWN';
   //const noOfRooms = Filters['noOfRooms'];
-  const flatType = '5 ROOM';
+  const flatType = '4 ROOM';
   //const floorArea = Filters['floorArea'];
   const floorArea = 100;
   //const flatModel = Filters['flatModel'];
-  const flatModel = 'New Generation';
+  const flatModel = 'MODEL A';
   //let leaseStartDate = Filters['leaseStartDate'];
-  let leaseStartDate = 1980;
+  let leaseStartDate = 2015;
+  //const floor = Filters['floor'];
+  const floor = '29';
 
   //let graphFlats = new Array();         //array of flats to be graphed
   //let predictedData = new Array();      //array of predicted data
@@ -27,23 +30,36 @@ const GraphFunction = (Filters) => {
   let testPrice = []           //array of 5 resale prices
   
   let variables;
+  let extra = 0;
+  let year = new Date().getFullYear();
+  let stringVariables;
   useEffect(() => {
     (async () => {
       try {
   for(let x = 0; x < 5; x++) {
-    graphFlats.push(await getGraphFlat(townName, (leaseStartDate += x), flatType, flatModel, floorArea)); //historic data
+    let temp = await getGraphFlat(townName, (leaseStartDate -+ (x + extra)), flatType, flatModel, floorArea);
+    if(temp['docs'].length == 0)
+    {
+      extra++;
+      x--;
+      continue;
+    }
+    //console.log(temp['docs'][0].data());
+    graphFlats.push(temp['docs'][0].data()); //historic data
     variables = {
       townName: townName,
-      flatType: flatType,
+      noOfRooms: flatType,
+      floor: floor,
+      floorArea: floorArea,
       flatModel: flatModel,
-      leaseStartDate: leaseStartDate,
-      floorArea: floorArea
+      leaseStartDate: year + x
+      
       }
-    console.log(graphFlats[x].id);
+    console.log(graphFlats[x]);
     //testPrice.push(graphFlats['data'].resale_price(variables));
 
-    let stringVariables = JSON.stringify(variables);    //this is to get predicted resalePrice from backend
-    fetch('https://sc2006-backend-b3go.onrender.com/filterReq', {
+    stringVariables = JSON.stringify(variables);    //this is to get predicted resalePrice from backend
+    fetch('http://localhost:3001/filterReq', {
       method: 'POST',
       mode: 'cors',
       headers: {"Content-type": "application/json;charset=UTF-8"},
@@ -51,7 +67,8 @@ const GraphFunction = (Filters) => {
     })
     .then(response => response.json())
     .then(data => {
-      predictedData.push(data['data']);                 //predicted data will be storing in this array
+      predictedData.push(data['data']);     //predicted data will be storing in this array
+      console.log(data['data']);
     });
     
   }

@@ -151,14 +151,13 @@ export const getFilteredFlats = async (townName, noOfRooms) => {
 export const getGraphFlat = async (townName, leaseCommence, flatType, flatModel, floorArea) => {
     let ref = collection(db, "data");
     let q = query(
-        collection(db, "data"),
+        ref,
         where("town", "==" ,townName),
         where("lease_commence_date", "==" ,leaseCommence),
         where("flat_type", "==" ,flatType),
-        where("flat_model", "==" ,flatModel),
-        where("floor_area_sqm", "==" ,floorArea),
+        //where("flat_model", "==" ,flatModel),
+        //where("floor_area_sqm", "==" ,floorArea),
         limit(1));
-
     return await getDocs(q);
 }
 

@@ -81,8 +81,8 @@ const SetFilter = (data) => {
 
         }
     }
-    town = townData[0][data['townName']];
-    model = flatData[0][data['flatModel']];
+    town = townData[0][data['townName'].toUpperCase()];
+    model = flatData[0][data['flatModel'].toUpperCase()];
     roomNo = roomNoData[0][data['noOfRooms']];
     dateTime = new Date(data['leaseStartDate']);
     //leaseStartDate = Math.floor(dateTime.getTime()/1000); //UNIX TIME: DO NOT USE
@@ -114,7 +114,7 @@ res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
 res.header('Access-Control-Allow-Headers', 'Content-Type');
 const rawData = req.body;
 SetFilter(rawData);
-console.log('Data collected ' + Filter()['area']);
+console.log('Data collected ' + JSON.stringify(Filter()));
 res.send({data: formula(Filter())});
 console.log('Data sent ' + JSON.stringify(formula(Filter())));
 res.end();
