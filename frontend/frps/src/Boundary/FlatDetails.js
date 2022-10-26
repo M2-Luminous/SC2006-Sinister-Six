@@ -353,8 +353,6 @@ const FlatDetails = () => {
                 }
             </Container>
 
-            {/* map stuff */}
-
             {!loading &&
                 <Container>
                     <MapToolbar />
