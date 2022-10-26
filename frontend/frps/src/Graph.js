@@ -59,7 +59,7 @@ const GraphFunction = (Filters) => {
     //testPrice.push(graphFlats['data'].resale_price(variables));
 
     stringVariables = JSON.stringify(variables);    //this is to get predicted resalePrice from backend
-    fetch('http://localhost:3001/filterReq', {
+    fetch('https://sc2006-backend-b3go.onrender.com/filterReq', {
       method: 'POST',
       mode: 'cors',
       headers: {"Content-type": "application/json;charset=UTF-8"},
