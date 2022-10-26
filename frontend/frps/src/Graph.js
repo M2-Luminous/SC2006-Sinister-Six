@@ -2,10 +2,11 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import React, {PureComponent} from 'react';
 //import MenuItem from '@mui/material/MenuItem';
 //import {Filter} from './Boundary/Filter';
-import {getGraphFlat} from './Control/DatabaseController.js';
+import {getGraphFlat, getGraphFlat2} from './Control/DatabaseController.js';
 import {Container, Typography, Slider} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { date } from 'yup';
+import {JSCharting} from 'jscharting-react';
 
 const GraphFunction = (Filters) => {
   //const townName = Filters['townName'];
@@ -21,23 +22,29 @@ const GraphFunction = (Filters) => {
   //const floor = Filters['floor'];
   const floor = '29';
 
-  //let graphFlats = new Array();         //array of flats to be graphed
-  //let predictedData = new Array();      //array of predicted data
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [points,setPoints] = useState([]);
+
   let graphFlats = [];         //array of flats to be graphed
   let predictedData = [];      //array of predicted data
-  let testPrice = []           //array of 5 resale prices
   
   let variables;
   let extra = 0;
   let year = new Date().getFullYear();
   let stringVariables;
+
+  let displayYear = [];
+  let testPrice = [];
+  let predictedYear = [];
+
   useEffect(() => {
     (async () => {
       try {
   for(let x = 0; x < 5; x++) {
     let temp = await getGraphFlat(townName, (leaseStartDate -+ (x + extra)), flatType, flatModel, floorArea);
+    //let [leaseS, price] = await getGraphFlat2(townName, (leaseStartDate -+ (x + extra)), flatType);
+
     if(temp['docs'].length == 0)
     {
       extra++;
@@ -46,6 +53,10 @@ const GraphFunction = (Filters) => {
     }
     //console.log(temp['docs'][0].data());
     graphFlats.push(temp['docs'][0].data()); //historic data
+    displayYear.push(temp['docs'][0].data().lease_commence_date);
+    testPrice.push(temp['docs'][0].data().resale_price);
+    predictedYear.push(year + x);
+
     variables = {
       townName: townName,
       noOfRooms: flatType,
@@ -53,10 +64,8 @@ const GraphFunction = (Filters) => {
       floorArea: floorArea,
       flatModel: flatModel,
       leaseStartDate: year + x
-      
       }
     console.log(graphFlats[x]);
-    //testPrice.push(graphFlats['data'].resale_price(variables));
 
     stringVariables = JSON.stringify(variables);    //this is to get predicted resalePrice from backend
     fetch('https://sc2006-backend-b3go.onrender.com/filterReq', {
@@ -67,101 +76,74 @@ const GraphFunction = (Filters) => {
     })
     .then(response => response.json())
     .then(data => {
-      predictedData.push(data['data']);     //predicted data will be storing in this array
       console.log(data['data']);
+      predictedData.push(data['data']);     //predicted data will be storing in this array
     });
+    
     
   }
   } catch (err) {
     console.log("ERROR:" + err);
   }
+
+  //const mergeResult = array1.concat(array2);
+  const mergeYear = displayYear.concat(predictedYear);
+  const mergePrice = testPrice.concat(predictedData);
+  
+  console.log(mergeYear);
+  console.log(mergePrice);
+  console.log(predictedData);
+
+  for (let i = 0; i < mergeYear.length-1; i++) {
+  //let newPoint = [xAxisVariable, predictedData[i]];
+  let newPoint = [mergeYear[i], mergePrice[i]];
+  setPoints((points) => [...points, newPoint]);
+  }
+
   setLoading(false);
   })();
 }, []);
 
-  const dataa = [
+const config= {
+  debug: true,
+  type:"line",
+  xAxis:{
+    label_text: "Year",
+  },
+  yAxis: {
+    label_text: "Price",
+  },
+
+  series : [
     {
-      name: 'Page A',
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: 'Page B',
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+    name : "Price",
+    points: points
+}]
+};
+
+const divStyle = {
+width: '50%',
+height: '50%',
+};
 
 const [value, setValue] = React.useState([0, 10]);
 const handleChange = (event, newValue) => {
   setValue(newValue);
 };
 
-  return ( 
-    <>
-    {!loading &&
-    <Container>
-      <Typography id="range-slider" gutterBottom>
-        Resale Price Prediction
-      </Typography>
-      
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart
-          width={500}
-          height={300}
-          data={dataa}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray= "3 3" />
-          <XAxis dataKey= "name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-        </LineChart>
-      </ResponsiveContainer>
-    </Container> }
-    </>
- );
-  }
-
- 
+return ( 
+  <Container>
+    <Typography id="range-slider" gutterBottom>
+      Resale Price Prediction
+    </Typography>
+    
+    <ResponsiveContainer width="100%" height={400}>
+      <div style = {{divStyle}}>
+        <JSCharting options={config}/>
+      </div>
+    </ResponsiveContainer>
+  </Container>
+);
+}
+  
 export default GraphFunction;

@@ -155,12 +155,28 @@ export const getGraphFlat = async (townName, leaseCommence, flatType, flatModel,
         where("town", "==" ,townName),
         where("lease_commence_date", "==" ,leaseCommence),
         where("flat_type", "==" ,flatType),
-        //where("flat_model", "==" ,flatModel),
-        //where("floor_area_sqm", "==" ,floorArea),
         limit(1));
     return await getDocs(q);
 }
 
+let leaseS = [];
+let price = [];
+
+export const getGraphFlat2 = async (townName, leaseCommence, flatType, flatModel, floorArea) => {
+    let ref = collection(db, "data");
+    let q = query(
+        ref,
+        where("town", "==" ,townName),
+        where("lease_commence_date", "==" ,leaseCommence),
+        where("flat_type", "==" ,flatType),
+        limit(1));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            leaseS.push(doc.data().lease_commence_date);
+            price.push(doc.data().resale_price);
+        });
+        return [leaseS, price];
+}
 
 
 // Feedback handlers
