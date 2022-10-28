@@ -12,6 +12,7 @@ import Flat from '../Entity/Flat';
 import images from '../Control/ImageController';
 import { getOneFlat } from '../Control/DatabaseController';
 import GraphFunction from '../Graph';
+import { JSCharting } from 'jscharting-react';
 
 var center = { lat: 1.3, lng: 106 };
 
@@ -73,6 +74,7 @@ const FlatDetails = () => {
     const { flatID } = useParams();
     const [loading, setLoading] = useState(true);
     const [flat, setFlat] = useState([]);
+    const [config, setConfig] = useState(null);
 
     let history = useHistory();
 
@@ -103,6 +105,8 @@ const FlatDetails = () => {
                     setFlat(results);
                     center = coor(oneFlat.data().town);
                     console.log(center);
+                    let temp = GraphFunction(Flat);
+                    setConfig(temp);
                 }
             } catch (err) {
                 console.log("ERROR:" + err);
@@ -414,7 +418,9 @@ const FlatDetails = () => {
                                 boxShadow: '0 0 10px 0 rgba(0,0,0,0.5)',
                             },
                         }}>
-                            <GraphFunction flat={flat} />
+                            <Container>
+                                <JSCharting options={config} />
+                            </Container>
                         </Card>
                     </Container>
                 </>

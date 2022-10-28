@@ -7,21 +7,21 @@ import { useEffect, useState } from 'react';
 import { JSCharting } from 'jscharting-react';
 
 const GraphFunction = (Filters) => {
-  //const townName = Filters['townName'];
-  //const flatType = Filters['noOfRooms'];
-  //const floorArea = Filters['floorArea'];
-  //const flatModel = Filters['flatModel'];
-  //let leaseStartDate = Filters['leaseStartDate'];
-  //const floor = Filters['floor'];
+  const townName = Filters['town'];
+  const flatType = Filters['flatType'];
+  const floorArea = Filters['floorAreaSqm'];
+  const flatModel = Filters['flatModel'];
+  let leaseStartDate = Filters['leaseCommenceDate'];
+  const floor = Filters['storeyRange'];
 
-  const townName = 'QUEENSTOWN';
-  const flatType = '4 ROOM';
-  const floorArea = 100;
-  const flatModel = 'MODEL A';
-  let leaseStartDate = 2015;
-  const floor = '29';
+  //const townName = 'QUEENSTOWN';
+  //const flatType = '4 ROOM';
+  //const floorArea = 100;
+  //const flatModel = 'MODEL A';
+  //let leaseStartDate = 2015;
+  //const floor = '29';
 
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   //const [error, setError] = useState(null);
   const [points, setPoints] = useState([]);
   //const [points2,setPoints2] = useState([]);
@@ -122,7 +122,7 @@ const GraphFunction = (Filters) => {
       //   }
       //console.log(points);
 
-      setLoading(false);
+      //setLoading(false);
     })();
   }, []);
 
@@ -166,13 +166,9 @@ const GraphFunction = (Filters) => {
     setValue(newValue);
   };
 
-  return (
-    <Container>
-      <div style={{ divStyle }}>
-        <JSCharting options={config} />
-      </div>
-    </Container>
-  );
+  return{
+    config
+  };
 }
 
 export default GraphFunction;
