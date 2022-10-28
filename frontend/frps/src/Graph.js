@@ -43,7 +43,7 @@ const GraphFunction = (Filters) => {
   useEffect(() => {
     (async () => {
       try {
-  for(let x = 0; x < 5; x++) {
+  for(let x = 0; x < 10; x++) {
     let temp = await getGraphFlat(townName, (leaseStartDate -+ (x + extra)), flatType, flatModel, floorArea);
     //let [leaseS, price] = await getGraphFlat2(townName, (leaseStartDate -+ (x + extra)), flatType);
 
@@ -70,7 +70,7 @@ const GraphFunction = (Filters) => {
       }
     console.log(graphFlats[x]);
 
-    stringVariables = JSON.stringify(variables);    //this is to get predicted resalePrice from backend
+    /*stringVariables = JSON.stringify(variables);    //this is to get predicted resalePrice from backend
     fetch('https://sc2006-backend-b3go.onrender.com/filterReq', {
       method: 'POST',
       mode: 'cors',
@@ -81,7 +81,7 @@ const GraphFunction = (Filters) => {
     .then(data => {
       console.log(data['data']);
       predictedData.push(data['data']);     //predicted data will be storing in this array
-    });
+    });*/
 
   }
   } catch (err) {
@@ -91,8 +91,23 @@ const GraphFunction = (Filters) => {
   //const mergeResult = array1.concat(array2);
   displayYear.reverse();
   testPrice.reverse();
-  let mergeYear = displayYear.concat(predictedYear);
-  let mergePrice = testPrice.concat(predictedData);
+  //let mergeYear = displayYear.concat(predictedYear);
+  //let mergePrice = testPrice.concat(predictedData);
+  let mergeYear = displayYear;
+  let mergePrice = testPrice;
+
+  for(let i = 0; i < 10; i++)
+  {
+    if(i < 5)
+    {
+      mergeYear[i] = mergeYear[i+5];
+    }
+    else
+    {
+      mergeYear[i] = year + (i%5);
+    }
+    
+  }
   //console.log(typeof mergePrice[0]);
   //console.log(typeof mergePrice[5]);
 
@@ -125,7 +140,7 @@ const config = {
     scale_interval: 1,
     scale_type: "linear",
     //scale_breaks: [[2016, 2021]]
-    
+    scale: { breaks: [[leaseStartDate+1, year-1]]},
   },
   yAxis: {
     label_text: "Price",
