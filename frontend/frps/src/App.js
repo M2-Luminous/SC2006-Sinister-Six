@@ -8,6 +8,7 @@ import Navbar from './Boundary/UIElements/Navbar';
 import Footer from './Boundary/UIElements/Footer';
 import Feedback from './Boundary/Feedback';
 import Admin from './Boundary/Admin';
+import Graph from './Graph';
 
 
 function App() {
@@ -34,6 +35,9 @@ function App() {
             </Route>
             <Route exact path="/admin">
               <Admin />
+            </Route>
+            <Route exact path="/gtest">
+              <Graph />
             </Route>
           </Switch>
         </div>

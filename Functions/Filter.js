@@ -114,7 +114,7 @@ res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
 res.header('Access-Control-Allow-Headers', 'Content-Type');
 const rawData = req.body;
 SetFilter(rawData);
-console.log('Data collected ' + Filter()['area']);
+console.log('Data collected ' + JSON.stringify(Filter()));
 res.send({data: formula(Filter())});
 console.log('Data sent ' + JSON.stringify(formula(Filter())));
 res.end();
