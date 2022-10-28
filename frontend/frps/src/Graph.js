@@ -1,8 +1,8 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { ResponsiveContainer } from 'recharts';
 import React, {PureComponent} from 'react';
 //import MenuItem from '@mui/material/MenuItem';
 //import {Filter} from './Boundary/Filter';
-import {getGraphFlat, getGraphFlat2} from './Control/DatabaseController.js';
+import {getGraphFlat} from './Control/DatabaseController.js';
 import {Container, Typography, Slider} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { date } from 'yup';
@@ -10,33 +10,35 @@ import {JSCharting} from 'jscharting-react';
 
 const GraphFunction = (Filters) => {
   //const townName = Filters['townName'];
-  const townName = 'QUEENSTOWN';
-  //const noOfRooms = Filters['noOfRooms'];
-  const flatType = '4 ROOM';
+  //const flatType = Filters['noOfRooms'];
   //const floorArea = Filters['floorArea'];
-  const floorArea = 100;
   //const flatModel = Filters['flatModel'];
-  const flatModel = 'MODEL A';
   //let leaseStartDate = Filters['leaseStartDate'];
-  let leaseStartDate = 2015;
   //const floor = Filters['floor'];
+
+  const townName = 'QUEENSTOWN';
+  const flatType = '4 ROOM';
+  const floorArea = 100;
+  const flatModel = 'MODEL A';
+  let leaseStartDate = 2015;
   const floor = '29';
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  //const [error, setError] = useState(null);
   const [points,setPoints] = useState([]);
+  //const [points2,setPoints2] = useState([]);
 
   let graphFlats = [];         //array of flats to be graphed
-  let predictedData = [];      //array of predicted data
-  
   let variables;
-  let extra = 0;
-  let year = new Date().getFullYear();
   let stringVariables;
 
-  let displayYear = [];
-  let testPrice = [];
-  let predictedYear = [];
+  let extra = 0;
+  let year = new Date().getFullYear();
+
+  let displayYear = [];       //array of years to be displayed
+  let testPrice = [];         //array of prices to be displayed
+  let predictedYear = [];     //array of predicted years to be displayed
+  let predictedData = [];      //array of predicted price to be displayed
 
   useEffect(() => {
     (async () => {
@@ -53,9 +55,10 @@ const GraphFunction = (Filters) => {
     }
     //console.log(temp['docs'][0].data());
     graphFlats.push(temp['docs'][0].data()); //historic data
+
     displayYear.push(temp['docs'][0].data().lease_commence_date);
     testPrice.push(temp['docs'][0].data().resale_price);
-    predictedYear.push(year + x);
+    predictedYear.push((2022 + x));
 
     variables = {
       townName: townName,
@@ -79,51 +82,72 @@ const GraphFunction = (Filters) => {
       console.log(data['data']);
       predictedData.push(data['data']);     //predicted data will be storing in this array
     });
-    
-    
+
   }
   } catch (err) {
     console.log("ERROR:" + err);
   }
 
   //const mergeResult = array1.concat(array2);
-  const mergeYear = displayYear.concat(predictedYear);
-  const mergePrice = testPrice.concat(predictedData);
-  
-  console.log(mergeYear);
-  console.log(mergePrice);
-  console.log(predictedData);
+  displayYear.reverse();
+  testPrice.reverse();
+  let mergeYear = displayYear.concat(predictedYear);
+  let mergePrice = testPrice.concat(predictedData);
+  //console.log(typeof mergePrice[0]);
+  //console.log(typeof mergePrice[5]);
 
-  for (let i = 0; i < mergeYear.length-1; i++) {
+  //console.log(mergePrice[0], mergePrice[5]);
+  //console.log(mergeYear[0], mergeYear[5]);
+  //console.log(predictedData);
+
+  for (let i = 0; i < mergeYear.length; i++) {
   //let newPoint = [xAxisVariable, predictedData[i]];
   let newPoint = [mergeYear[i], mergePrice[i]];
   setPoints((points) => [...points, newPoint]);
   }
 
+  // for (let i = 0; i < predictedYear.length; i++) {
+  //   //let newPoint = [xAxisVariable, predictedData[i]];
+  //   let newPoint2 = [predictedYear[i], predictedData[i]];
+  //   setPoints2((points2) => [...points2, newPoint2]);
+  //   }
+  //console.log(points);
+
   setLoading(false);
   })();
 }, []);
 
-const config= {
+const config = {
   debug: true,
   type:"line",
   xAxis:{
     label_text: "Year",
+    scale_interval: 1,
+    scale_type: "linear",
+    //scale_breaks: [[2016, 2021]]
+    
   },
   yAxis: {
     label_text: "Price",
+    scale_type: "linear",
   },
 
   series : [
     {
     name : "Price",
-    points: points
-}]
+    points: points,
+    },
+  
+    // {
+    //   name : "Predicted price",
+    //   points: points2,
+    //   },
+  ]
 };
 
 const divStyle = {
-width: '50%',
-height: '50%',
+width: '60%',
+height: '60%',
 };
 
 const [value, setValue] = React.useState([0, 10]);

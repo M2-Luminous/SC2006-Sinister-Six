@@ -11,7 +11,7 @@ import React from 'react';
 import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
 import { Box } from '@mui/system';
 import images from '../Control/ImageController';
-
+import GraphFunction from '../Graph';
 
 var center = { lat: 1.3, lng: 106 };
 
@@ -348,6 +348,11 @@ const FlatDetails = () => {
                             <MarkerF position={center} />
                         </GoogleMap>
                     </Card>
+                </Container>
+            }
+                        {!loading &&
+                <Container>
+                    <GraphFunction flat={flat} />
                 </Container>
             }
         </>
