@@ -10,6 +10,7 @@ import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
 
 import Flat from '../Entity/Flat';
 import images from '../Control/ImageController';
+import { getOneFlat } from '../Control/DatabaseController';
 import GraphFunction from '../Graph';
 
 var center = { lat: 1.3, lng: 106 };
@@ -37,6 +38,28 @@ export const MapToolbar = () => {
                 variant="h4"
             >
                 Map
+            </Typography>
+
+        </Box>
+    );
+}
+
+export const PricePredictionToolbar = () => {
+    return (
+        <Box
+            sx={{
+                alignItems: 'center',
+                display: 'flex',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                m: -1
+            }}
+        >
+            <Typography
+                sx={{ m: 1 }}
+                variant="h4"
+            >
+                Resale Price Prediction
             </Typography>
 
         </Box>
@@ -377,9 +400,24 @@ const FlatDetails = () => {
                 </Container>
             }
             {!loading &&
-                <Container>
-                    <GraphFunction flat={flat} />
-                </Container>
+                <>
+                    <Container sx={{ my: '30px' }}>
+                        <PricePredictionToolbar />
+                        <Card sx={{
+                            mt: '20px',
+                            // minHeight: 500,
+                            // maxHeight: 500,
+                            borderRadius: '20px',
+                            padding: '4rem',
+                            display: 'flex',
+                            ':hover': {
+                                boxShadow: '0 0 10px 0 rgba(0,0,0,0.5)',
+                            },
+                        }}>
+                            <GraphFunction flat={flat} />
+                        </Card>
+                    </Container>
+                </>
             }
         </>
     );
