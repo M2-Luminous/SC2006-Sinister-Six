@@ -105,8 +105,8 @@ const FlatDetails = () => {
                     setFlat(results);
                     center = coor(oneFlat.data().town);
                     console.log(center);
-                    let temp = GraphFunction(Flat);
-                    setConfig(temp);
+                    //let temp = GraphFunction(Flat);
+                    //setConfig(temp);
                 }
             } catch (err) {
                 console.log("ERROR:" + err);
@@ -419,7 +419,7 @@ const FlatDetails = () => {
                             },
                         }}>
                             <Container>
-                                <JSCharting options={config} />
+                                
                             </Container>
                         </Card>
                     </Container>
