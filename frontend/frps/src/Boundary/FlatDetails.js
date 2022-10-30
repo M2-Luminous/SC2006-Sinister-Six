@@ -11,7 +11,7 @@ import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
 import Flat from '../Entity/Flat';
 import images from '../Control/ImageController';
 import { getOneFlat } from '../Control/DatabaseController';
-import GraphFunction from '../Graph';
+import { GraphFunction} from '../Graph';
 import { JSCharting } from 'jscharting-react';
 
 var center = { lat: 1.3, lng: 106 };
@@ -105,7 +105,10 @@ const FlatDetails = () => {
                     setFlat(results);
                     center = coor(oneFlat.data().town);
                     console.log(center);
+                    await graphPlot(results);
                     //let temp = GraphFunction(Flat);
+                    //let temp = 0;
+                    //GraphFunction(flat);
                     //setConfig(temp);
                 }
             } catch (err) {
@@ -113,7 +116,15 @@ const FlatDetails = () => {
             }
 
         })();
-    });
+    }, []);
+
+    /*async function getGraph()
+    {
+       await GraphFunction(flat)
+       .then(data => {
+        console.log(data);
+       })
+    }*/
 
     useLoadScript({
         // googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
@@ -419,7 +430,7 @@ const FlatDetails = () => {
                             },
                         }}>
                             <Container>
-                                
+                            
                             </Container>
                         </Card>
                     </Container>
@@ -430,5 +441,8 @@ const FlatDetails = () => {
 
 }
 
+async function graphPlot(flat){
+    console.log(await GraphFunction(flat));
+}
 
 export default FlatDetails;
