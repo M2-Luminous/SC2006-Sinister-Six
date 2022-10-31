@@ -19,6 +19,7 @@
     "react-router-dom": "^5.3.4",
     "react-scripts": "5.0.1",
     "recharts": "^2.1.15",
+    "seedrandom": "^3.0.5",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },

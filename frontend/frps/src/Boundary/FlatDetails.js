@@ -13,6 +13,7 @@ import images from '../Control/ImageController';
 import { getOneFlat } from '../Control/DatabaseController';
 import { GraphFunction} from '../Graph';
 import { JSCharting } from 'jscharting-react';
+import seedrandom from 'seedrandom';
 
 var center = { lat: 1.3, lng: 106 };
 
@@ -21,6 +22,12 @@ const imageRNG = (flatID) => {
     const lastCharInt = lastChar.charCodeAt(0) % 20;
     return images[lastCharInt];
 
+}
+
+const priceRNG = (flatID) => {
+    const lastChar = flatID.charAt(flatID.length - 1);
+    const lastCharInt = lastChar.charCodeAt(0) % 10;
+    return lastCharInt;
 }
 
 export const MapToolbar = () => {
@@ -73,8 +80,11 @@ const FlatDetails = () => {
     // might be able to decouple into another js file, maybe IndividualFlatController
     const { flatID } = useParams();
     const [loading, setLoading] = useState(true);
+    const [loading1, setLoading1] = useState(true);
     const [flat, setFlat] = useState([]);
     const [config, setConfig] = useState(null);
+    const [points, setPoints] = useState([]);
+    let year = new Date().getFullYear();
 
     let history = useHistory();
 
@@ -103,13 +113,34 @@ const FlatDetails = () => {
                         oneFlat.data().town
                     )
                     setFlat(results);
+                    //console.log(results);
                     center = coor(oneFlat.data().town);
-                    console.log(center);
-                    await graphPlot(results);
+                    //console.log(center);
+                    //await graphPlot(results);
                     //let temp = GraphFunction(Flat);
                     //let temp = 0;
                     //GraphFunction(flat);
                     //setConfig(temp);
+                    let rng = new seedrandom(priceRNG(flatID));
+                    for(let i = 0; i < 10; i++)
+                    {
+                        let random = rng();
+                        //console.log(random);
+                        if(i < 5)
+                        {
+                            let newPoint = [(results['leaseCommenceDate'] - (5 - i)), (results['resalePrice'] * (1 + random))];
+                            setPoints((points) => [...points, newPoint]);
+                            //console.log("<5 " + newPoint)
+                        }
+                        else
+                        {
+                            let newPoint = [(year + i%5) ,(results['resalePrice'] * (1 + random))];
+                            setPoints((points) => [...points, newPoint]);
+                            //console.log(">5 " + newPoint)
+                        }
+                    }
+                   
+                      
                 }
             } catch (err) {
                 console.log("ERROR:" + err);
@@ -117,6 +148,53 @@ const FlatDetails = () => {
 
         })();
     }, []);
+
+    useEffect(() => {
+        if(config != null)
+        {
+            //console.log("test" + config['type']);
+            setLoading1(false);
+        }
+    }, [config]);
+
+    useEffect(() => {
+        if(points.length != 0)
+        {
+            //console.log(points);
+            let year = new Date().getFullYear();
+            let year1 = points[4];
+            //console.log(year1[0]);
+            setConfig({
+                debug: true,
+                type: "line",
+                height: 500,
+                xAxis: {
+                  label_text: "Year",
+                  scale_interval: 1,
+                  scale_type: "linear",
+                  //scale_breaks: [[2016, 2021]]
+                  scale: { breaks: [[(year1[0] + 1), year - 1]] },
+                },
+                yAxis: {
+                  label_text: "Price",
+                  scale_type: "linear",
+                },
+              
+                series: [
+                  {
+                    name: "Price",
+                    points: points,
+                  },
+              
+                  // {
+                  //   name : "Predicted price",
+                  //   points: points2,
+                  //   },
+                ]
+              })
+              //console.log(config);
+        }
+    }, [points])
 
     /*async function getGraph()
     {
@@ -195,7 +273,7 @@ const FlatDetails = () => {
             if (address === towns[j]) {
                 const { lat, long } = coordinates[j];
                 const center = { lat: lat, lng: long };
-                console.log(center)
+                //console.log(center)
                 return center;
             }
         }
@@ -414,7 +492,7 @@ const FlatDetails = () => {
                     </Card>
                 </Container>
             }
-            {!loading &&
+            {loading1 ? null :
                 <>
                     <Container sx={{ my: '30px' }}>
                         <PricePredictionToolbar />
@@ -430,7 +508,7 @@ const FlatDetails = () => {
                             },
                         }}>
                             <Container>
-                            
+                                <JSCharting options={config} />
                             </Container>
                         </Card>
                     </Container>
@@ -439,10 +517,6 @@ const FlatDetails = () => {
         </>
     );
 
-}
-
-async function graphPlot(flat){
-    console.log(await GraphFunction(flat));
 }
 
 export default FlatDetails;
