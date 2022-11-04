@@ -8,25 +8,25 @@ import { JSCharting } from 'jscharting-react';
 
 export const GraphFunction = (filters) => {
 
-  // const townName = filters['town'];
-  // const flatType = filters['flatType'];
-  // const floorArea = filters['floorAreaSqm'];
-  // const flatModel = filters['flatModel'];
-  // let leaseStartDate = filters['leaseCommenceDate'];
-  // const floor = filters['storeyRange'];
-
+  // const townName = filters['filters']['town'];
+  // const flatType = filters['filters']['flatType'];
+  // const floorArea = filters['filters']['floorAreaSqm'];
+  // const flatModel = filters['filters']['flatModel'];
+  // let leaseStartDate = filters['filters']['leaseCommenceDate'];
+  // const floor = filters['filters']['storeyRange'];
+  //let [config, setConfig] = useState(null);
   //const townName = 'QUEENSTOWN';
   //const flatType = '4 ROOM';
   //const floorArea = 100;
   //const flatModel = 'MODEL A';
   //let leaseStartDate = 2015;
   //const floor = '29';
-
+  
   
 
-  /*useEffect(() => {
-    (async () => {
-      try {
+  //useEffect(() => {
+    //(async () => {
+      /*try {
         for (let x = 0; x < 10; x++) {
           let temp = await getGraphFlat(townName, (leaseStartDate - + (x + extra)), flatType, flatModel, floorArea);
           //let [leaseS, price] = await getGraphFlat2(townName, (leaseStartDate -+ (x + extra)), flatType);
@@ -53,7 +53,7 @@ export const GraphFunction = (filters) => {
           }
           console.log(graphFlats[x]);
 
-          /*stringVariables = JSON.stringify(variables);    //this is to get predicted resalePrice from backend
+          stringVariables = JSON.stringify(variables);    //this is to get predicted resalePrice from backend
           fetch('https://sc2006-backend-b3go.onrender.com/filterReq', {
             method: 'POST',
             mode: 'cors',
@@ -70,7 +70,6 @@ export const GraphFunction = (filters) => {
       } catch (err) {
         console.log("ERROR:" + err);
       }*/
-let config;
 console.log("Calling getGraph");
 // async () => {
 // let prom = new Promise(function(resolve, reject){
@@ -78,7 +77,8 @@ console.log("Calling getGraph");
 // })
 // config = await prom;
 // }
-GetGraph(filters['filters']).then(data => config = data);
+let config;
+GetGraph(filters).then(data => config = data);
 console.log("Exit getGraph");
 
   const divStyle = {
@@ -97,8 +97,16 @@ console.log("Exit getGraph");
 //       <JSCharting options={config} />
 //     </Container> 
 //  );
-return config;
+/*useEffect(() => {
+  if(config != null)
+  {
+    return config;
+  }
+}, [config])*/
 }
+//), []})
+
+
 
 async function GetGraph(filters) {
   let graphFlats = [];         //array of flats to be graphed
@@ -120,18 +128,21 @@ async function GetGraph(filters) {
   //const [points, setPoints] = useState([]);
   //const [points2,setPoints2] = useState([]);
   //const [config, setConfig] = useState();
-  // const townName = filters['town'];
-  // const flatType = filters['flatType'];
-  // const floorArea = filters['floorAreaSqm'];
-  // const flatModel = filters['flatModel'];
-  // let leaseStartDate = filters['leaseCommenceDate'];
-  // const floor = filters['storeyRange'];
-  const townName = 'QUEENSTOWN';
-  const flatType = '4 ROOM';
-  const floorArea = 100;
-  const flatModel = 'MODEL A';
-  let leaseStartDate = 2000;
-  const floor = '29';
+  
+  const townName = filters['town'];
+  const flatType = filters['flatType'];
+  const floorArea = filters['floorAreaSqm'];
+  const flatModel = filters['flatModel'];
+  let leaseStartDate = filters['leaseCommenceDate'];
+  const floor = filters['storeyRange'];
+  // const townName = 'QUEENSTOWN';
+  // const flatType = '4 ROOM';
+  // const floorArea = 100;
+  // const flatModel = 'MODEL A';
+  // let leaseStartDate = 2000;
+  // const floor = '29';
+  
+  
 
   try {
     for (let x = 0; graphFlats.length < 5; x++) {
@@ -163,7 +174,27 @@ async function GetGraph(filters) {
       displayYear.push(temp['docs'][0].data().lease_commence_date);
       testPrice.push(temp['docs'][0].data().resale_price);
       predictedYear.push((2022 + x));
-
+      variables = {
+        townName: townName,
+        noOfRooms: flatType,
+        floor: floor,
+        floorArea: floorArea,
+        flatModel: flatModel,
+        leaseStartDate: year + x
+      }
+      stringVariables = JSON.stringify(variables);    //this is to get predicted resalePrice from backend
+          fetch('https://sc2006-backend-b3go.onrender.com/filterReq', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {"Content-type": "application/json;charset=UTF-8"},
+            body: stringVariables
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data['data']);
+            predictedData.push(data['data']);     //predicted data will be storing in this array
+          });
+          //console.log(graphFlats[x]);
       /*variables = {
         townName: townName,
         noOfRooms: flatType,
@@ -176,13 +207,11 @@ async function GetGraph(filters) {
     }
 //const mergeResult = array1.concat(array2);
 displayYear.reverse();
-testPrice.reverse();
-//let mergeYear = displayYear.concat(predictedYear);
-//let mergePrice = testPrice.concat(predictedData);
-let mergeYear = displayYear;
-let mergePrice = testPrice;
-
-// if(mergeYear.length <= 5)
+//testPrice.reverse();
+let mergeYear = displayYear.concat(predictedYear);
+let mergePrice = testPrice.concat(predictedData);
+//let mergeYear = displayYear;
+//let mergePrice = testPrice;
 
 // for (let i = 0; i < mergeYear.length; i++) {
 //   if (i < mergeYear.length / 2) {
@@ -191,11 +220,6 @@ let mergePrice = testPrice;
 //   else {
 //     mergeYear[i] = year + (i % 5);
 //   }
-
-for(let i = 0; i < mergeYear.length; i++)
-{
-
-}
 
 //console.log(typeof mergePrice[0]);
 //console.log(typeof mergePrice[5]);
@@ -210,11 +234,11 @@ for (let i = 0; i < mergeYear.length; i++) {
   points = (points) => [...points, newPoint];
 }
 
-// for (let i = 0; i < predictedYear.length; i++) {
-//   //let newPoint = [xAxisVariable, predictedData[i]];
-//   let newPoint2 = [predictedYear[i], predictedData[i]];
-//   setPoints2((points2) => [...points2, newPoint2]);
-//   }
+ /*for (let i = 0; i < predictedYear.length; i++) {
+  //let newPoint = [xAxisVariable, predictedData[i]];
+   let newPoint2 = [predictedYear[i], predictedData[i]];
+   setPoints2((points2) => [...points2, newPoint2]);
+   }*/
 //console.log(points);
 
 //setLoading(false);
@@ -258,4 +282,4 @@ return await config;
 
 
 
-//export default GraphFunction;
+export default GraphFunction;

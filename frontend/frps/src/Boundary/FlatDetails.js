@@ -116,31 +116,11 @@ const FlatDetails = () => {
                     //console.log(results);
                     center = coor(oneFlat.data().town);
                     //console.log(center);
-                    //await graphPlot(results);
-                    //let temp = GraphFunction(Flat);
+                    //setConfig(await graphPlot(results));
+                    setConfig(GraphFunction(results));
                     //let temp = 0;
                     //GraphFunction(flat);
-                    //setConfig(temp);
-                    let rng = new seedrandom(priceRNG(flatID));
-                    for(let i = 0; i < 10; i++)
-                    {
-                        let random = rng();
-                        //console.log(random);
-                        if(i < 5)
-                        {
-                            let newPoint = [(results['leaseCommenceDate'] - (5 - i)), (results['resalePrice'] * (1 + random))];
-                            setPoints((points) => [...points, newPoint]);
-                            //console.log("<5 " + newPoint)
-                        }
-                        else
-                        {
-                            let newPoint = [(year + i%5) ,(results['resalePrice'] * (1 + random))];
-                            setPoints((points) => [...points, newPoint]);
-                            //console.log(">5 " + newPoint)
-                        }
-                    }
-                   
-                      
+                    //console.log(config);                   
                 }
             } catch (err) {
                 console.log("ERROR:" + err);
@@ -150,12 +130,20 @@ const FlatDetails = () => {
     }, []);
 
     useEffect(() => {
+
         if(config != null)
         {
             //console.log("test" + config['type']);
             setLoading1(false);
         }
+        else
+        {
+            //setConfig(config)
+            console.log("Waiting for config");
+        }
     }, [config]);
+
+    
 
     useEffect(() => {
         if(points.length != 0)
