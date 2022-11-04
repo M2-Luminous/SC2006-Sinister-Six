@@ -1,5 +1,5 @@
 import './App.css';
-import Home from './Boundary/Home';
+import HomePage from './Boundary/HomePage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; //npm install react-router-dom@5
 
 import Filter from './Boundary/Filter';
@@ -19,10 +19,10 @@ function App() {
         <div className="content">
           <Switch>
             <Route exact path="/">
-              <Home />
+              <HomePage />
             </Route>
             <Route exact path="/home">
-              <Home />
+              <HomePage />
             </Route>
             <Route path="/filters">
               <Filter />

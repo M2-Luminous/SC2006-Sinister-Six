@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, doc, getDoc, addDoc, limit, query, orderBy, startAfter, deleteDoc, where } from "firebase/firestore";
 
-/*const firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyAO1UltJ3w_L0PihYZh5yOAqc3tZzKMjlY",
     authDomain: "sinistersix-a7294.firebaseapp.com",
     projectId: "sinistersix-a7294",
@@ -9,19 +9,19 @@ import { getFirestore, collection, getDocs, doc, getDoc, addDoc, limit, query, o
     messagingSenderId: "1001256148525",
     appId: "1:1001256148525:web:dc4e6af2b971c3d8b4a2a4",
     measurementId: "G-SLWEFXJ12L"
-};*/
+};
 
 // backup firestore incase we hit the limit
- const firebaseConfig = {
-    apiKey: "AIzaSyD2X-yBfawUzAuEv0Dk8mw3N4tpGoAJFv0",
-    authDomain: "escendotwo.firebaseapp.com",
-    databaseURL: "https://escendotwo-default-rtdb.firebaseio.com",
-    projectId: "escendotwo",
-    storageBucket: "escendotwo.appspot.com",
-    messagingSenderId: "373625997495",
-    appId: "1:373625997495:web:ddb6a6aecde59cb7266532",
-    measurementId: "G-54Y5ZYX5V7"
- };
+//  const firebaseConfig = {
+//     apiKey: "AIzaSyD2X-yBfawUzAuEv0Dk8mw3N4tpGoAJFv0",
+//     authDomain: "escendotwo.firebaseapp.com",
+//     databaseURL: "https://escendotwo-default-rtdb.firebaseio.com",
+//     projectId: "escendotwo",
+//     storageBucket: "escendotwo.appspot.com",
+//     messagingSenderId: "373625997495",
+//     appId: "1:373625997495:web:ddb6a6aecde59cb7266532",
+//     measurementId: "G-54Y5ZYX5V7"
+//  };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -181,9 +181,9 @@ export const getGraphFlat = async (townName, leaseCommence, flatType, flatModel,
     let ref = collection(db, "data");
     let q = query(
         ref,
-        where("town", "==" ,townName),
-        where("lease_commence_date", "==" ,leaseCommence),
-        where("flat_type", "==" ,flatType),
+        where("town", "==", townName),
+        where("lease_commence_date", "==", leaseCommence),
+        where("flat_type", "==", flatType),
         limit(1));
     return await getDocs(q);
 }

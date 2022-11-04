@@ -18,7 +18,7 @@ import Flat from "../Entity/Flat";
  * This function is called when user lands on the home page.
  * @returns {JSX.Element} The home page.
  */
-const Home = () => {
+const HomePage = () => {
     // const [flats, setFlats] = useState(null);
     // store last document
     const [lastDoc, setLastDoc] = useState(null);
@@ -187,4 +187,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default HomePage;
