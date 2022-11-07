@@ -18,11 +18,9 @@ https://sinistersix-a7294.web.app/
   
     (4)Resale Price from database
   
-    (5)Neighbouring Compare
+    (5)Price Prediction
   
-    (6)Price Prediction
-  
-    (7)Feedback and Maintenance
+    (6)Feedback and Maintenance
 
 3.create a simple raw html frontend for testing
 
@@ -42,7 +40,7 @@ https://sinistersix-a7294.web.app/
     n2202347h@e.ntu.edu.sg
 
 &Documentation
-https://docs.google.com/document/d/1jLdZbBcXDcSJIwgTmEBp2PISO__WxkBHexCa87Wjzas/edit?usp=sharing
+https://docs.google.com/document/d/1u0Tw9rE8y-hLQs1L9_HOyiQ5aDlALqVvpfy3_RY7tF8/edit?usp=sharing
 
 &Dataset
 
