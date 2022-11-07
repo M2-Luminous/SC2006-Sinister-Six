@@ -1,5 +1,9 @@
 # SC2006_Sinister_Six
 
+&Final Website Link
+
+https://sinistersix-a7294.web.app/
+
 &Tasks
 
 1.separate the backend tasks for all 6 group member base on the diagram we drawn
