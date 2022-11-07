@@ -4,6 +4,14 @@
 
 https://sinistersix-a7294.web.app/
 
+
+&Account to login admin panel
+
+    admin@gmail.com
+
+    password
+
+
 &Tasks
 
 1.separate the backend tasks for all 6 group member base on the diagram we drawn
